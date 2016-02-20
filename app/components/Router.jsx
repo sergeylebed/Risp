@@ -82,6 +82,7 @@ export default class Router extends React.Component {
       case '#/Test':
         return (
           <Shared context={context}>
+            <Test />
           </Shared>
         );
 
