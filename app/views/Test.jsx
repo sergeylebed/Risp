@@ -21,7 +21,7 @@ const ProgressBar = ({number}) => {
 };
 
 
-export default function() {
+export default function Test() {
   return (
     <ProgressBar number={10} />
   );

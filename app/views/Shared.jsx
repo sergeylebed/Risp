@@ -12,8 +12,7 @@ const Shared = ({ context, children }) => {
               <li>
                 <a className="navbar-brand" href='#'
                   onClick={(e) => { e.preventDefault(); context.redirect('#/Welcome'); }}>
-                  <span className="glyphicon glyphicon-home" aria-hidden="true"></span>
-                    RISP
+                  <span className="glyphicon glyphicon-home" aria-hidden="true"></span> RISP
                 </a>
               </li>
               <li>
@@ -50,6 +49,8 @@ const Shared = ({ context, children }) => {
                 onClick={(e) => { e.preventDefault(); context.redirect('#/Welcome'); }}>About</a></li>
               <li><a href='#'
                 onClick={(e) => { e.preventDefault(); context.redirect('#/Welcome'); }}>Tell us</a></li>
+              <li><a href='#'
+                onClick={(e) => { e.preventDefault(); context.redirect('#/Test'); }}>Test</a></li>
             </ul>
           </div>
         </div>
