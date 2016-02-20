@@ -1,10 +1,6 @@
 .navbottom { margin-top: 20px }
-.btn-group {
-    margin-left: 0px;
-}
-.btn-group:first-child {
-    margin-left: 0;
-}
 .progressbar {margin: 10px 0; }
 .progressbar .btn-group { padding: 0 5px; }
-.progressbar button { width: 100% }
+.progressbar button { width: 100%; color: transparent; }
+.phase-active { outline: #f00 solid 2px; }
+.phase-number { padding: 8px; text-align: center }

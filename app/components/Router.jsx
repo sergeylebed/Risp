@@ -67,7 +67,10 @@ export default class Router extends React.Component {
       case '#/Test':
         return (
           <Shared context={context}>
-            <Test />
+            <Test
+              fileName={context.data.id}
+              file={this.props.store.getState()[context.data.id]}
+            />
           </Shared>
         );
 
