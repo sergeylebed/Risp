@@ -60,9 +60,19 @@
 
 	var _FileEdit = __webpack_require__(3);
 
+	var _FileEdit2 = _interopRequireDefault(_FileEdit);
+
 	var _FileRun = __webpack_require__(4);
 
+	var _FileRun2 = _interopRequireDefault(_FileRun);
+
 	var _Welcome = __webpack_require__(5);
+
+	var _Welcome2 = _interopRequireDefault(_Welcome);
+
+	var _Shared = __webpack_require__(164);
+
+	var _Shared2 = _interopRequireDefault(_Shared);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -70,8 +80,14 @@
 	  var element = this.$element()[0];
 
 	  this.get('#/Welcome', function (context) {
-	    _reactDom2.default.render(_react2.default.createElement(_Welcome.Welcome, { redirect: context.redirect.bind(context) }), element);
+	    _reactDom2.default.render(_react2.default.createElement(
+	      _Shared2.default,
+	      { context: context },
+	      _react2.default.createElement(_Welcome2.default, null)
+	    ), element);
 	  });
+
+	  this.get('#/Edit', function (context) {});
 
 	  this.get('#/Edit/:id', function (context) {
 	    var id = context.params.id;
@@ -12118,7 +12134,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.Welcome = Welcome;
+	exports.default = Welcome;
 
 	var _react = __webpack_require__(6);
 
@@ -12127,7 +12143,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function Welcome(_ref) {
-	  var redirect = _ref.redirect;
+	  var context = _ref.context;
 
 	  return _react2.default.createElement(
 	    'div',
@@ -12140,7 +12156,7 @@
 	    _react2.default.createElement(
 	      'button',
 	      { onClick: function onClick() {
-	          return redirect('#/Edit/100');
+	          return context.redirect('#/Edit/100');
 	        } },
 	      'Link'
 	    )
@@ -31747,6 +31763,65 @@
 
 	module.exports = __webpack_require__(8);
 
+
+/***/ },
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = Shared;
+
+	var _react = __webpack_require__(6);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function Shared(_ref) {
+	  var context = _ref.context;
+	  var children = _ref.children;
+
+	  var clonedChildren = _react2.default.Children.map(children, function (child) {
+	    return _react2.default.cloneElement(child, { context: context });
+	  });
+
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'navbar navbar-default' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'container' },
+	          _react2.default.createElement(
+	            'a',
+	            { className: 'navbar-brand', href: '#', onClick: function onClick(e) {
+	                e.preventDefault();context.redirect('#/Welcome');
+	              } },
+	            'Risp'
+	          )
+	        )
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'container' },
+	        clonedChildren
+	      )
+	    )
+	  );
+	}
 
 /***/ }
 /******/ ]);

@@ -2,19 +2,26 @@ import Sammy from 'sammy';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { FileEdit } from '../views/FileEdit.jsx';
-import { FileList } from '../views/FileEdit.jsx';
-import { FileRun } from '../views/FileRun.jsx';
-import { Welcome } from '../views/Welcome.jsx';
+import FileEdit from '../views/FileEdit.jsx';
+import FileList from '../views/FileEdit.jsx';
+import FileRun from '../views/FileRun.jsx';
+import Welcome from '../views/Welcome.jsx';
+import Shared from '../views/Shared.jsx';
 
 Sammy('#content', function() {
   const element = this.$element()[0];
 
   this.get('#/Welcome', (context) => {
     ReactDOM.render(
-      <Welcome redirect={context.redirect.bind(context)}/>,
+      <Shared context={context}>
+        <Welcome />
+      </Shared>,
       element
     );
+  });
+
+  this.get('#/Edit', (context) => {
+
   });
 
   this.get('#/Edit/:id', (context) => {
