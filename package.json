@@ -25,7 +25,9 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.6",
+    "jquery": "^2.2.0",
     "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "sammy": "^0.7.6"
   }
 }
