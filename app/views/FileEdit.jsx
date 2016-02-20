@@ -104,13 +104,13 @@ export default class FileEdit extends React.Component {
     return (
       <div className='edit'>
         <div className='row edit-title'>
-          <div className='col-md-2'>
+          <div className='col-md-2 col-sm-1 col-xs-1'>
             <button className='btn btn-default btn-lg pull-right'
               onClick={() => context.redirect('#/List')}>
               <span className='glyphicon glyphicon-align-justify' />
             </button>
           </div>
-          <div className='col-md-8'>
+          <div className='col-md-8 col-sm-10 col-xs-10'>
             <div className='input-group input-group-lg'>
               <input
                 className='form-control'
@@ -128,11 +128,11 @@ export default class FileEdit extends React.Component {
               </span>
             </div>
           </div>
-          <div className='col-md-2'></div>
+          <div className='col-md-2 col-sm-1 col-xs-1'></div>
         </div>
         <div className='row edit-header'>
-          <div className='col-md-2'></div>
-          <div className='col-md-8'>
+          <div className='col-md-2 col-sm-1 col-xs-1'></div>
+          <div className='col-md-8 col-sm-10 col-xs-10'>
             <NumberPicker
               begin={1}
               step={1}
@@ -140,10 +140,10 @@ export default class FileEdit extends React.Component {
               value={phases && phases.length}
               onSelect={this.handlePhasesSelect}/>
           </div>
-          <div className='col-md-2'></div>
+          <div className='col-md-2 col-sm-1 col-xs-1'></div>
         </div>
         <div className='row edit-body'>
-          <div className='col-md-2'>
+          <div className='col-md-2 col-sm-1 col-xs-1'>
             <NumberPicker
               className='pull-right'
               vertical
@@ -153,7 +153,7 @@ export default class FileEdit extends React.Component {
               value={restTime}
               onSelect={this.handleRestSelect}/>
           </div>
-          <div className='col-md-8'>
+          <div className='col-md-8 col-sm-10 col-xs-10'>
             <ul className='list-group'>
               {
                 (this.state.file.phases || []).map((phase, id) => (
@@ -169,7 +169,7 @@ export default class FileEdit extends React.Component {
               }
             </ul>
           </div>
-          <div className='col-md-2'>
+          <div className='col-md-2 col-sm-1 col-xs-1'>
             <NumberPicker
               className='pull-left'
               vertical
@@ -181,11 +181,11 @@ export default class FileEdit extends React.Component {
           </div>
         </div>
         <div className='row edit-footer'>
-          <div className='col-md-2'></div>
-          <div className='col-md-8'>
+          <div className='col-md-2 col-sm-1 col-xs-1'></div>
+          <div className='col-md-8 col-sm-10 col-xs-10'>
             <button className='btn btn-default btn-lg btn-success' disabled={!this.validFile()}>Start</button>
           </div>
-          <div className='col-md-2'></div>
+          <div className='col-md-2 col-sm-1 col-xs-1'></div>
         </div>
       </div>
     );
