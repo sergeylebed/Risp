@@ -1,0 +1,16 @@
+.file-list .btn-group {
+  display: block;
+}
+
+.file-list-item-title {
+  width: calc(100% - 50px);
+}
+
+.file-list-item-remove {
+  width: 50px;
+}
+
+.file-list-item-remove:hover {
+  color: red;
+  background: white;
+}

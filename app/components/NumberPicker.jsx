@@ -28,7 +28,7 @@ const NumberPicker = ({ value, begin, step, number, onSelect, vertical, classNam
   if(!oneActive && value) {
     btn = <button disabled className='btn btn-default btn-primary'>{value}</button>;
   } else {
-    btn = <button disabled className='btn btn-default'><span className='glyphicon glyphicon-cog' aria-hidden={true}></span></button>;
+    btn = <button disabled className='btn btn-default'><span className='glyphicon glyphicon-cog' aria-hidden></span></button>;
   }
 
   return (
