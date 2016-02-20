@@ -1,0 +1,11 @@
+body { padding-top: 140px; }
+.navbar-header {
+    float: left;
+}
+.navbar-top { background-color: #ffffff;min-height: 120px }
+.navbar-top .nav>li { float: none; }
+.navbar-top .navbar-nav{ float: left; margin:10px 10px 0 0; }
+.navbar-top .navbar-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
