@@ -1,3 +1,6 @@
+.edit .edit-header {
+  padding: 15px 0;
+}
 body { padding-top: 140px; }
 .navbar-header {
     float: left;
