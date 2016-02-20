@@ -1,19 +1,15 @@
 import React from 'react';
 
 import NumberPicker from '../components/NumberPicker.jsx';
+import { Exercise } from '../stores/ExerciseStore.js';
 
 export default class FileEdit extends React.Component {
   // { fileName, file, onSave, hasChanged, onRun }
   constructor(props) {
     super(props);
-
     this.state = {
-      fileName: props.fileName,
-      file: props.file || {
-        restTime: null,
-        phases: null,
-        repeat: null
-      },
+      fileName: props.fileName || '',
+      file: props.file || new Exercise(null, null, null)
     };
 
     var handlers = [
@@ -21,8 +17,7 @@ export default class FileEdit extends React.Component {
       'handlePhasesSelect',
       'handleRestSelect',
       'handleRepeatSelect',
-      'handlePhaseSelect',
-      'validFile'
+      'handlePhaseSelect'
     ];
 
     handlers.forEach((key) => {
@@ -38,15 +33,13 @@ export default class FileEdit extends React.Component {
 
   handlePhasesSelect(value) {
     this.setState((state) => {
-      var ph = (this.state.file.phases || []).slice(0, value);
+      var ph = (state.file.phases() || []).slice(0, value);
       if(ph.length < value) {
         ph = [...ph, ...new Array(value - ph.length)];
       }
 
       return Object.assign({}, state, {
-        file: Object.assign({}, state.file, {
-          phases: ph
-        })
+        file: state.file.phases(ph)
       });
     });
   }
@@ -54,9 +47,7 @@ export default class FileEdit extends React.Component {
   handleRestSelect(value) {
     this.setState((state) => {
       return Object.assign({}, state, {
-        file: Object.assign({}, state.file, {
-          restTime: value
-        })
+        file: state.file.restTime(value)
       });
     });
   }
@@ -64,9 +55,7 @@ export default class FileEdit extends React.Component {
   handleRepeatSelect(value) {
     this.setState((state) => {
       return Object.assign({}, state, {
-        file: Object.assign({}, state.file, {
-          repeat: value
-        })
+        file: state.file.repeat(value)
       });
     });
   }
@@ -74,28 +63,16 @@ export default class FileEdit extends React.Component {
   handlePhaseSelect(value, id) {
     this.setState((state) => {
       return Object.assign({}, state, {
-        file: Object.assign({}, state.file, {
-          phases: state.file.phases.map((v, i) => i === id ? value : v)
-        })
+        file: state.file.phases(state.file.phases().map((v, i) => i === id ? value : v))
       });
     });
   }
 
-  validFile() {
-    var { restTime, phases, repeat } = this.state.file;
-
-    return restTime &&
-    phases &&
-    repeat &&
-    phases.every((v) => v);
-  }
-
   render() {
     var context = this.props.context;
-    var { restTime, phases, repeat } = this.state.file;
+    var file = this.state.file;
 
-    var canSave = this.state.fileName.trim() !== '' &&
-    this.validFile() &&
+    var canSave = this.state.file.valid() &&
     this.props.canSave({
       fileName: this.state.fileName,
       file: this.state.file
@@ -122,7 +99,7 @@ export default class FileEdit extends React.Component {
                 <button
                   disabled={!canSave}
                   className='btn btn-default btn-success'
-                  onClick={() => this.props.onSave({ fileName: this.state.fileName, file: this.state.file })}>
+                  onClick={() => this.props.onSave({ fileName: this.state.fileName, file })}>
                   Save
                 </button>
               </span>
@@ -137,7 +114,7 @@ export default class FileEdit extends React.Component {
               begin={1}
               step={1}
               number={5}
-              value={phases && phases.length}
+              value={file.phases() && file.phases().length}
               onSelect={this.handlePhasesSelect}/>
           </div>
           <div className='col-md-2 col-sm-1 col-xs-1'></div>
@@ -150,19 +127,19 @@ export default class FileEdit extends React.Component {
               begin={0}
               step={5}
               number={5}
-              value={restTime}
+              value={file.restTime()}
               onSelect={this.handleRestSelect}/>
           </div>
           <div className='col-md-8 col-sm-10 col-xs-10'>
             <ul className='list-group'>
               {
-                (this.state.file.phases || []).map((phase, id) => (
+                (file.phases() || []).map((phase, id) => (
                   <li className='list-group-item'>
                     <NumberPicker
                       begin={1}
                       step={1}
                       number={5}
-                      value={phases[id]}
+                      value={file.phases()[id]}
                       onSelect={(value) => this.handlePhaseSelect(value, id)}/>
                   </li>
                 ))
@@ -177,14 +154,16 @@ export default class FileEdit extends React.Component {
               begin={0}
               step={5}
               number={5}
-              value={repeat}
+              value={file.repeat()}
               onSelect={this.handleRepeatSelect}/>
           </div>
         </div>
         <div className='row edit-footer'>
           <div className='col-md-2 col-sm-1 col-xs-1'></div>
           <div className='col-md-8 col-sm-10 col-xs-10'>
-            <button className='btn btn-default btn-lg btn-success' disabled={!this.validFile()}>Start</button>
+            <button
+              className='btn btn-default btn-lg btn-success'
+              disabled={!file.valid()}>Start</button>
           </div>
           <div className='col-md-2 col-sm-1 col-xs-1'></div>
         </div>

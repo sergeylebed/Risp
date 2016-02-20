@@ -1,31 +1,26 @@
 import React from 'react';
 
-export default class FileList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      edit: false
-    };
-  }
-
-  render() {
-    var { files, context, onAdd } = this.props;
-
-    return (
-      <div className='row'>
-        <div className='col-md-8 col-md-offset-2'>
-          <div className='list-group'>
-            {
-              files.map((file) => (
-                <a href='#' className='list-group-item' onClick={(e) => { e.preventDefault(); context.redirect('#/Edit/' + file); }}>
-                  {
-                    file
-                  }
-                </a>
-              ))
-            }
-            <div className='list-group-item'>
+const FileList = ({ files, context, onRemove }) => {
+  return (
+    <div className='row file-list'>
+      <div className='col-md-8 col-md-offset-2'>
+        <div className='list-group'>
+          {
+            files.map((file) => (
+              <div className='list-group-item'>
+                <div className='btn-group btn-group-lg clearfix'>
+                  <button className='btn btn-default file-list-item-title'
+                    onClick={(e) => { e.preventDefault(); context.redirect('#/Edit', { id: file }); }}>{file}</button>
+                  <button className='btn btn-default file-list-item-remove'
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); onRemove({ fileName: file }) }}>
+                    <span className="glyphicon glyphicon-remove" aria-hidden></span>
+                  </button>
+                </div>
+              </div>
+            ))
+          }
+          <div className='list-group-item clearfix'>
+            <div className='btn-group btn-group-lg'>
               <button className='btn btn-default btn-primary' onClick={() => context.redirect('#/Edit')}>
                 <span className='glyphicon glyphicon-plus'></span>
               </button>
@@ -33,6 +28,8 @@ export default class FileList extends React.Component {
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default FileList;
