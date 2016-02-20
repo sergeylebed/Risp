@@ -4,7 +4,7 @@ export const ActionTypes = {
   load: 'LOAD'
 };
 
-export function ExerciseStore(state, action) {
+function ExerciseStoreReducer(state, action) {
   if(!state) {
       return { };
   }
@@ -25,3 +25,22 @@ export function ExerciseStore(state, action) {
       console.error('Unknows action type: ' + action.type);
   }
 }
+
+import { createStore } from 'redux';
+
+export var ExerciseStore = (() => {
+  var store = createStore(ExerciseStoreReducer);
+
+  if(localStorage.exerciseStore) {
+    store.dispatch({
+      type: ActionTypes.load,
+      data: localStorage.exerciseStore
+    });
+  }
+
+  store.subscribe(() => {
+    localStorage.exerciseStore = store.getState();
+  });
+
+  return store;
+})();
