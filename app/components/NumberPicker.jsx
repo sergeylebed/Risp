@@ -1,15 +1,16 @@
 import React from 'react';
 
-const NumberPicker = ({ begin, step, number, onSelect, selectedId, vertical, className }) => {
+const NumberPicker = ({ value, begin, step, number, onSelect, vertical, className }) => {
 
+  var oneActive = false;
   var btns = [];
   for(var i = 0; i < number; i++) {
     var val = begin + step * i;
-    var active = i === selectedId;
+    var active = val === value;
+    oneActive = oneActive || active;
 
     btns.push(
       <button
-        key={i}
         className={'btn btn-default' + (active ? ' btn-primary' : '')}
         onClick={((val, id) => () => onSelect(val, id))(val, i)}>
           {
@@ -19,24 +20,21 @@ const NumberPicker = ({ begin, step, number, onSelect, selectedId, vertical, cla
     );
   }
 
-  var btnContent;
-  if(selectedId >= number) {
-    btnContent = begin + selectedId * step;
+  var btn;
+  if(!oneActive && value) {
+    btn = <button disabled className='btn btn-default btn-primary'>{value}</button>;
   } else {
-    btnContent = <span className='glyphicon glyphicon-cog' aria-hidden={true}></span>;
+    btn = <button disabled className='btn btn-default'><span className='glyphicon glyphicon-cog' aria-hidden={true}></span></button>;
   }
 
   return (
-
     <div className={(vertical ? 'btn-group-vertical' : 'btn-group') + ' btn-group-lg ' + className}>
       {
         btns
       }
-      <button className='btn btn-default' disabled>
-        {
-          btnContent
-        }
-      </button>
+      {
+        btn
+      }
     </div>
   );
 };

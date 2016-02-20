@@ -32,14 +32,23 @@ export var ExerciseStore = (() => {
   var store = createStore(ExerciseStoreReducer);
 
   if(localStorage.exerciseStore) {
-    store.dispatch({
-      type: ActionTypes.load,
-      data: localStorage.exerciseStore
-    });
+    var data;
+    try {
+      data = JSON.parse(localStorage.exerciseStore);
+    } catch(e) {
+      data = null;
+    }
+
+    if(data) {
+      store.dispatch({
+        type: ActionTypes.load,
+        data
+      });
+    }
   }
 
   store.subscribe(() => {
-    localStorage.exerciseStore = store.getState();
+    localStorage.exerciseStore = JSON.stringify(store.getState());
   });
 
   return store;

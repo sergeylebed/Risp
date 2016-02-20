@@ -14,16 +14,14 @@ export default class FileEdit extends React.Component {
         phases: null,
         repeat: null
       },
-      restTimeId: -1,
-      phasesId: -1,
-      repeatId: -1
     };
 
     var handlers = [
       'handleNameChange',
       'handlePhasesSelect',
       'handleRestSelect',
-      'handleRepeatSelect'
+      'handleRepeatSelect',
+      'handlePhaseSelect'
     ];
 
     handlers.forEach((key) => {
@@ -37,7 +35,7 @@ export default class FileEdit extends React.Component {
     });
   }
 
-  handlePhasesSelect(value, id) {
+  handlePhasesSelect(value) {
     this.setState((state) => {
       var ph = (this.state.file.phases || []).slice(0, value);
       if(ph.length < value) {
@@ -47,35 +45,54 @@ export default class FileEdit extends React.Component {
       return Object.assign({}, state, {
         file: Object.assign({}, state.file, {
           phases: ph
-        }),
-        phasesId: id
+        })
       });
     });
   }
 
-  handleRestSelect(value, id) {
+  handleRestSelect(value) {
     this.setState((state) => {
       return Object.assign({}, state, {
         file: Object.assign({}, state.file, {
           restTime: value
-        }),
-        restTimeId: id
+        })
       });
     });
   }
 
-  handleRepeatSelect(value, id) {
+  handleRepeatSelect(value) {
     this.setState((state) => {
       return Object.assign({}, state, {
         file: Object.assign({}, state.file, {
           repeat: value
-        }),
-        repeatId: id
+        })
+      });
+    });
+  }
+
+  handlePhaseSelect(value, id) {
+    this.setState((state) => {
+      return Object.assign({}, state, {
+        file: Object.assign({}, state.file, {
+          phases: state.file.phases.map((v, i) => i === id ? value : v)
+        })
       });
     });
   }
 
   render() {
+
+    var { restTime, phases, repeat } = this.state.file;
+    var canSave = this.state.fileName.trim() !== '' &&
+    restTime &&
+    phases &&
+    repeat &&
+    phases.every((v) => v) &&
+    this.props.canSave({
+      fileName: this.state.fileName,
+      file: this.state.file
+    });
+
     return (
       <div className='edit'>
         <div className='row edit-title'>
@@ -90,8 +107,9 @@ export default class FileEdit extends React.Component {
                 onChange={(e) => this.handleNameChange(e.target.value)}/>
               <span className='input-group-btn'>
                 <button
+                  disabled={!canSave}
                   className='btn btn-default'
-                  onClick={() => this.props.onSave(this.state)}>
+                  onClick={() => this.props.onSave({ fileName: this.state.fileName, file: this.state.file })}>
                   Save
                 </button>
               </span>
@@ -106,7 +124,7 @@ export default class FileEdit extends React.Component {
               begin={1}
               step={1}
               number={5}
-              selectedId={this.state.phasesId}
+              value={phases && phases.length}
               onSelect={this.handlePhasesSelect}/>
           </div>
           <div className='col-md-2'></div>
@@ -114,23 +132,38 @@ export default class FileEdit extends React.Component {
         <div className='row edit-body'>
           <div className='col-md-2'>
             <NumberPicker
-              className='pull-left'
-              vertical
-              begin={1}
-              step={1}
-              number={5}
-              selectedId={this.state.restTimeId}
-              onSelect={this.handleRestSelect}/>
-          </div>
-          <div className='col-md-8'></div>
-          <div className='col-md-2'>
-            <NumberPicker
               className='pull-right'
               vertical
               begin={1}
               step={1}
               number={5}
-              selectedId={this.state.repeatId}
+              value={restTime}
+              onSelect={this.handleRestSelect}/>
+          </div>
+          <div className='col-md-8'>
+            <ul className='list-group'>
+              {
+                (this.state.file.phases || []).map((phase, id) => (
+                  <li className='list-group-item'>
+                    <NumberPicker
+                      begin={1}
+                      step={1}
+                      number={5}
+                      value={phases[id]}
+                      onSelect={(value) => this.handlePhaseSelect(value, id)}/>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div className='col-md-2'>
+            <NumberPicker
+              className='pull-left'
+              vertical
+              begin={1}
+              step={1}
+              number={5}
+              value={repeat}
               onSelect={this.handleRepeatSelect}/>
           </div>
         </div>
