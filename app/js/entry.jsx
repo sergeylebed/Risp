@@ -8,18 +8,6 @@ import Router from '../components/Router.jsx';
 
 import { ActionTypes, ExerciseStore } from '../stores/ExerciseStore.js';
 
-function canSave({ fileName, file }) {
-  fileName = fileName.trim()
-  if(fileName === '') return false;
-
-  var saved = ExerciseStore.getState()[fileName];
-
-  if(!saved) return true;
-  if(!saved.equals(file)) return true;
-
-  return false;
-}
-
 function save({ fileName, file }) {
   ExerciseStore.dispatch({
     type: ActionTypes.save,
@@ -35,11 +23,20 @@ function remove({ fileName }) {
   });
 }
 
+function rename({ oldName, name, data }) {
+  ExerciseStore.dispatch({
+    type: ActionTypes.rename,
+    name,
+    oldName,
+    data
+  });
+}
+
 ReactDOM.render(
   <Router
     store={ExerciseStore}
-    canSave={canSave}
     onSave={save}
-    onRemove={remove}/>,
+    onRemove={remove}
+    onRename={rename}/>,
   document.getElementById('content')
 );

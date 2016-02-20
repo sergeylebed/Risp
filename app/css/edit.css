@@ -6,3 +6,12 @@
   margin-top: 15px;
   margin-bottom: 15px;
 }
+
+.edit .edit-saved {
+  width: 100%;
+}
+
+.edit .edit-saved .btn {
+  width: 100%;
+  text-align: left;
+}

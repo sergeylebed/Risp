@@ -4,12 +4,15 @@ import NumberPicker from '../components/NumberPicker.jsx';
 import { Exercise } from '../stores/ExerciseStore.js';
 
 export default class FileEdit extends React.Component {
-  // { fileName, file, onSave, hasChanged, onRun }
+  // { fileName, file, onSave, onRename, onRun }
   constructor(props) {
     super(props);
+
     this.state = {
       fileName: props.fileName || '',
-      file: props.file || new Exercise(null, null, null)
+      file: props.file || new Exercise(null, null, null),
+      savedName: props.fileName,
+      renaming: props.file === undefined
     };
 
     var handlers = [
@@ -17,7 +20,9 @@ export default class FileEdit extends React.Component {
       'handlePhasesSelect',
       'handleRestSelect',
       'handleRepeatSelect',
-      'handlePhaseSelect'
+      'handlePhaseSelect',
+      'handleSave',
+      'handleRename'
     ];
 
     handlers.forEach((key) => {
@@ -25,58 +30,116 @@ export default class FileEdit extends React.Component {
     });
   }
 
+  save(state, props) {
+    if(state.savedName) {
+      props.onSave(state);
+    }
+
+    return state;
+  }
+
   handleNameChange(text) {
-    this.setState((state) => {
+    this.setState((state, props) => {
       return Object.assign({}, state, { fileName: text });
     });
   }
 
   handlePhasesSelect(value) {
-    this.setState((state) => {
+    this.setState((state, props) => {
       var ph = (state.file.phases() || []).slice(0, value);
       if(ph.length < value) {
         ph = [...ph, ...new Array(value - ph.length)];
       }
 
-      return Object.assign({}, state, {
+      return this.save(Object.assign({}, state, {
         file: state.file.phases(ph)
-      });
+      }), props);
     });
   }
 
   handleRestSelect(value) {
-    this.setState((state) => {
-      return Object.assign({}, state, {
+    this.setState((state, props) => {
+      return this.save(Object.assign({}, state, {
         file: state.file.restTime(value)
-      });
+      }), props);
     });
   }
 
   handleRepeatSelect(value) {
-    this.setState((state) => {
-      return Object.assign({}, state, {
+    this.setState((state, props) => {
+      return this.save(Object.assign({}, state, {
         file: state.file.repeat(value)
-      });
+      }), props);
     });
   }
 
   handlePhaseSelect(value, id) {
-    this.setState((state) => {
-      return Object.assign({}, state, {
+    this.setState((state, props) => {
+      return this.save(Object.assign({}, state, {
         file: state.file.phases(state.file.phases().map((v, i) => i === id ? value : v))
+      }), props);
+    });
+  }
+
+  handleSave() {
+    this.setState((state, props) => {
+      if(state.savedName) {
+        props.onRename({ oldName: state.savedName, name: state.fileName, data: state.file });
+      } else {
+        props.onSave({ file: state.file, fileName: state.fileName });
+      }
+
+      return Object.assign({}, state, {
+        renaming: false
+      });
+    });
+  }
+
+  handleRename() {
+    this.setState((state, props) => {
+      return Object.assign({}, state, {
+        renaming: true
       });
     });
   }
 
   render() {
     var context = this.props.context;
-    var file = this.state.file;
 
-    var canSave = this.state.file.valid() &&
-    this.props.canSave({
-      fileName: this.state.fileName,
-      file: this.state.file
-    });
+    var { fileName, file } = this.state;
+
+    var Menu;
+    if(this.state.renaming){
+      Menu = (
+        <div className='input-group input-group-lg'>
+          <input
+            className='form-control'
+            type='text'
+            placeholder='Exercise name'
+            value={fileName}
+            onChange={(e) => this.handleNameChange(e.target.value)}/>
+          <span className='input-group-btn'>
+            <button
+              disabled={fileName.trim() === ''}
+              className='btn btn-default btn-success'
+              onClick={this.handleSave}>
+              Save
+            </button>
+          </span>
+        </div>
+      );
+    } else {
+      Menu = (
+        <div className='btn-group btn-group-lg edit-saved'>
+          <button className='btn btn-default'
+            onClick={this.handleRename}>
+            {
+              this.state.fileName
+            }
+          </button>
+        </div>
+      );
+    }
 
     return (
       <div className='edit'>
@@ -88,22 +151,9 @@ export default class FileEdit extends React.Component {
             </button>
           </div>
           <div className='col-md-8 col-sm-10 col-xs-10'>
-            <div className='input-group input-group-lg'>
-              <input
-                className='form-control'
-                type='text'
-                placeholder='Exercise name'
-                value={this.state.fileName}
-                onChange={(e) => this.handleNameChange(e.target.value)}/>
-              <span className='input-group-btn'>
-                <button
-                  disabled={!canSave}
-                  className='btn btn-default btn-success'
-                  onClick={() => this.props.onSave({ fileName: this.state.fileName, file })}>
-                  Save
-                </button>
-              </span>
-            </div>
+            {
+              Menu
+            }
           </div>
           <div className='col-md-2 col-sm-1 col-xs-1'></div>
         </div>

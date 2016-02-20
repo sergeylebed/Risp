@@ -8,7 +8,7 @@ import Shared from '../views/Shared.jsx';
 import Test from '../views/Test.jsx';
 
 export default class Router extends React.Component {
-  //{ store, onSave, canSave, onRemove }
+  //{ store, onSave, onRemove, onRename, hasFile }
   constructor(props) {
     super(props);
 
@@ -20,6 +20,19 @@ export default class Router extends React.Component {
     }
 
     this.redirect = this.redirect.bind(this);
+    this.handleRename = this.handleRename.bind(this);
+  }
+
+  handleRename(obj) {
+    this.props.onRename(obj);
+    this.setState((state) => {
+      return {
+        path: state.path,
+        data: {
+          id: obj.name
+        }
+      }
+    });
   }
 
   redirect(path, data) {
@@ -32,6 +45,8 @@ export default class Router extends React.Component {
   }
 
   render() {
+    var props = this.props;
+
     var context = {
       redirect: this.redirect,
       data: this.state.data
@@ -43,9 +58,9 @@ export default class Router extends React.Component {
           <Shared context={context}>
             <FileEdit
               fileName={context.data.id}
-              file={this.props.store.getState()[context.data.id]}
-              canSave={this.props.canSave}
-              onSave={this.props.onSave}/>
+              file={props.store.getState()[context.data.id]}
+              onSave={props.onSave}
+              onRename={this.handleRename}/>
           </Shared>
         );
 
@@ -53,8 +68,8 @@ export default class Router extends React.Component {
         return (
           <Shared context={context}>
             <FileList
-              files={Object.keys(this.props.store.getState())}
-              onRemove={this.props.onRemove}/>
+              files={Object.keys(props.store.getState())}
+              onRemove={props.onRemove}/>
           </Shared>
         );
 
