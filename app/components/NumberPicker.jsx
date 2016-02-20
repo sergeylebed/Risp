@@ -1,11 +1,15 @@
 import React from 'react';
 
-const NumberPicker = ({ value, begin, step, number, onSelect, vertical, className }) => {
+const NumberPicker = ({ value, begin, step, number, onSelect, vertical, className, first }) => {
 
   var oneActive = false;
   var btns = [];
   for(var i = 0; i < number; i++) {
     var val = begin + step * i;
+    if(first && val === 0) {
+      val = 1;
+    }
+
     var active = val === value;
     oneActive = oneActive || active;
 

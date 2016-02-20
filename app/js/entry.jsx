@@ -10,6 +10,7 @@ import FileList from '../views/FileList.jsx';
 import FileRun from '../views/FileRun.jsx';
 import Welcome from '../views/Welcome.jsx';
 import Shared from '../views/Shared.jsx';
+import Test from '../views/Test.jsx';
 
 import { ActionTypes, ExerciseStore } from '../stores/ExerciseStore.js';
 
@@ -72,6 +73,10 @@ Sammy('#content', function() {
 
   this.get('#/Run/:id', (context) => {
     var id = context.params.id;
+  });
+
+  this.get('#/Test', (context) => {
+    render(<Test />, context);
   });
 
   this.get('', (context) => {

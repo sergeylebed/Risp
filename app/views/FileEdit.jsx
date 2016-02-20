@@ -121,7 +121,7 @@ export default class FileEdit extends React.Component {
               <span className='input-group-btn'>
                 <button
                   disabled={!canSave}
-                  className='btn btn-default'
+                  className='btn btn-default btn-success'
                   onClick={() => this.props.onSave({ fileName: this.state.fileName, file: this.state.file })}>
                   Save
                 </button>
@@ -147,8 +147,8 @@ export default class FileEdit extends React.Component {
             <NumberPicker
               className='pull-right'
               vertical
-              begin={1}
-              step={1}
+              begin={0}
+              step={5}
               number={5}
               value={restTime}
               onSelect={this.handleRestSelect}/>
@@ -173,8 +173,9 @@ export default class FileEdit extends React.Component {
             <NumberPicker
               className='pull-left'
               vertical
-              begin={1}
-              step={1}
+              first
+              begin={0}
+              step={5}
               number={5}
               value={repeat}
               onSelect={this.handleRepeatSelect}/>
