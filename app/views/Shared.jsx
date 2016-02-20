@@ -6,31 +6,14 @@ const Shared = ({ context, children }) => {
   return (
     <div>
       <div className='row'>
-        <nav className='navbar navbar-default navbar-static-top'>
+        <nav className='navbar navbar-default'>
           <div className='container'>
-            <ul className="nav navbar-nav">
-              <li>
-                <a className="navbar-brand" href='#'
-                  onClick={(e) => { e.preventDefault(); context.redirect('#/Welcome'); }}>
-                  <span className="glyphicon glyphicon-home" aria-hidden="true"></span> RISP
-                </a>
-              </li>
-              <li>
-                <a href="#"
-                  className="dropdown-toggle"
-                  data-toggle="dropdown"
-                  role="button"
-                  aria-haspopup="true"
-                  aria-expanded="false">
-                  <span className="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-                </a>
-                <ul className="dropdown-menu">
-                  <li><a href="#">Open</a></li>
-                  <li><a href="#">Save</a></li>
-                  <li></li>
-                </ul>
-              </li>
-            </ul>
+            <div class="navbar-header">
+              <a className="navbar-brand" href='#'
+                onClick={(e) => { e.preventDefault(); context.redirect('#/Welcome'); }}>
+                <span className="glyphicon glyphicon-home" aria-hidden="true"></span> RISP
+              </a>
+            </div>
           </div>
         </nav>
       </div>
