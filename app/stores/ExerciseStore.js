@@ -63,7 +63,8 @@ export class Exercise {
 export const ActionTypes = {
   save: 'ADD',
   remove: 'REMOVE',
-  load: 'LOAD'
+  load: 'LOAD',
+  rename: 'RENAME'
 };
 
 function ExerciseStoreReducer(state, action) {
@@ -82,6 +83,12 @@ function ExerciseStoreReducer(state, action) {
       var temp = Object.assign({}, state);
       delete temp[action.name];
       return temp;
+
+    case ActionTypes.rename:
+      var tempState = Object.assign({}, state);
+      delete tempState[action.oldName];
+      tempState[action.name] = action.data;
+      return tempState;
 
     default:
       console.error('Unknows action type: ' + action.type);
