@@ -21,7 +21,8 @@ export default class FileEdit extends React.Component {
       'handlePhasesSelect',
       'handleRestSelect',
       'handleRepeatSelect',
-      'handlePhaseSelect'
+      'handlePhaseSelect',
+      'validFile'
     ];
 
     handlers.forEach((key) => {
@@ -80,14 +81,21 @@ export default class FileEdit extends React.Component {
     });
   }
 
-  render() {
-
+  validFile() {
     var { restTime, phases, repeat } = this.state.file;
-    var canSave = this.state.fileName.trim() !== '' &&
-    restTime &&
+
+    return restTime &&
     phases &&
     repeat &&
-    phases.every((v) => v) &&
+    phases.every((v) => v);
+  }
+
+  render() {
+    var context = this.props.context;
+    var { restTime, phases, repeat } = this.state.file;
+
+    var canSave = this.state.fileName.trim() !== '' &&
+    this.validFile() &&
     this.props.canSave({
       fileName: this.state.fileName,
       file: this.state.file
@@ -96,7 +104,12 @@ export default class FileEdit extends React.Component {
     return (
       <div className='edit'>
         <div className='row edit-title'>
-          <div className='col-md-2'></div>
+          <div className='col-md-2'>
+            <button className='btn btn-default btn-lg pull-right'
+              onClick={() => context.redirect('#/List')}>
+              <span className='glyphicon glyphicon-align-justify' />
+            </button>
+          </div>
           <div className='col-md-8'>
             <div className='input-group input-group-lg'>
               <input
@@ -169,7 +182,9 @@ export default class FileEdit extends React.Component {
         </div>
         <div className='row edit-footer'>
           <div className='col-md-2'></div>
-          <div className='col-md-8'></div>
+          <div className='col-md-8'>
+            <button className='btn btn-default btn-lg btn-success' disabled={!this.validFile()}>Start</button>
+          </div>
           <div className='col-md-2'></div>
         </div>
       </div>
