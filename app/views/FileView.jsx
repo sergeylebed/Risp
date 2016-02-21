@@ -112,6 +112,8 @@ export default class FileView extends React.Component {
             name={state.currentName()}
             file={state.currentFile()}
 
+            maxPhases={31}
+
             onClose={this.handleClose}
             onSave={this.handleSave}
             onBeginRename={this.handleBeginRename}

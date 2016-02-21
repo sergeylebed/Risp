@@ -7,7 +7,9 @@ import Shared from '../views/Shared.jsx'
 import FileView from '../views/FileView.jsx';
 import Welcome from '../views/Welcome.jsx';
 import FileRun from '../views/FileRun.jsx';
+
 import Test from '../views/Test.jsx';
+import Test2 from '../views/Test2.jsx';
 
 import ExerciseStore from '../stores/ExerciseStore.js';
 
@@ -35,7 +37,7 @@ Sammy('#content', function() {
   });
 
   this.get('#/Run', (context) => {
-      
+
     var phases = [
         new Phase(0, 4),
         new Phase(1, 2),
@@ -51,7 +53,7 @@ Sammy('#content', function() {
     );
   });
 
-  this.get('#/Test', (context) => {          
+  this.get('#/Test', (context) => {
     ReactDOM.render(
       <Shared context={context}>
         <Test store={ExerciseStore} />
@@ -59,6 +61,15 @@ Sammy('#content', function() {
       element
     );
   });
+
+  this.get('#/Test2', (context) => {
+    ReactDOM.render(
+      <Shared context={context}>
+        <Test2 />
+      </Shared>,
+      element
+    );
+  })
 
 
   this.get('', (context) => {
