@@ -4,17 +4,14 @@ const NumberPickerDialog = ({
   title,
 
   columns,
-  rows,
+  options,
 
   value,
-  begin,
-  step,
-
-  first,
 
   onSelect
 }) => {
   var activeAny = false;
+  var rows = Math.floor(options.length / columns) + (columns % 1 === 0 ? 0 : 1);
 
   return (
     <div className="modal-dialog number-picker-dialog" role="document">
@@ -34,24 +31,26 @@ const NumberPickerDialog = ({
                         {
                           new Array(columns).fill(null).map((_, colId) => {
                             var id = rowId * columns + colId;
-                            var val = begin + step * id;
-                            if(first && val === 0) val = 1;
 
-                            var active = val === value;
-                            activeAny = activeAny || active;
+                            if(id >= options.length) {
+                              return <td></td>;
+                            } else {
+                              var active = options[id] === value;
+                              activeAny = activeAny || active;
 
-                            return (
-                              <td>
-                                <button
-                                  className={'btn btn-default' + (active ? ' btn-primary' : '')}
-                                  data-dismiss='modal'
-                                  onClick={() => onSelect(val)}>
-                                  {
-                                    val
-                                  }
-                                </button>
-                              </td>
-                            );
+                              return (
+                                <td>
+                                  <button
+                                    className={'btn btn-default' + (active ? ' btn-primary' : '')}
+                                    data-dismiss='modal'
+                                    onClick={() => onSelect(options[id])}>
+                                    {
+                                      options[id]
+                                    }
+                                  </button>
+                                </td>
+                              );
+                            }
                           })
                         }
                       </tr>
@@ -67,14 +66,18 @@ const NumberPickerDialog = ({
                 <input
                   className={'form-control' + (!activeAny ? ' active' : '')}
                   type='text'
-                  value={value === null ? begin : value}
+                  value={value === null ? (options[0] || 0) : value}
                   onChange={(e) => onSelect(isNaN(e.target.value) ? value : Number.parseInt(e.target.value))}>
                 </input>
                 <div className='input-group-btn'>
                   <button className='btn btn-default'
-                    onClick={() => onSelect(value === null ? 1 : value + 1)}>ADD</button>
+                    onClick={() => onSelect(value === null ? 1 : value + 1)}>
+                    <span className='glyphicon glyphicon-chevron-up'></span>
+                  </button>
                   <button className='btn btn-default'
-                    onClick={() => onSelect(value === null ? 0 : Math.max(0, value - 1))}>LESS</button>
+                    onClick={() => onSelect(value === null ? 0 : Math.max(0, value - 1))}>
+                    <span className='glyphicon glyphicon-chevron-down'></span>
+                  </button>
                 </div>
               </div>
             </div>

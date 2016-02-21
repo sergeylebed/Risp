@@ -4,12 +4,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Shared from '../views/Shared.jsx'
-import FileView from '../views/FileView.jsx';
 import Welcome from '../views/Welcome.jsx';
 import FileRun from '../views/FileRun.jsx';
 
 import Test from '../views/Test.jsx';
 import Test2 from '../views/Test2.jsx';
+import Test3 from '../views/Test3.jsx';
 
 import ExerciseStore from '../stores/ExerciseStore.js';
 
@@ -25,15 +25,6 @@ Sammy('#content', function() {
       </Shared>,
       element
     )
-  });
-
-  this.get('#/View', (context) => {
-    ReactDOM.render(
-      <Shared context={context}>
-        <FileView store={ExerciseStore} />
-      </Shared>,
-      element
-    );
   });
 
   this.get('#/Run', (context) => {
@@ -69,8 +60,16 @@ Sammy('#content', function() {
       </Shared>,
       element
     );
-  })
+  });
 
+  this.get('#/Test3', (context) => {
+    ReactDOM.render(
+      <Shared context={context}>
+        <Test3 />
+      </Shared>,
+      element
+    );
+  });
 
   this.get('', (context) => {
     context.redirect('#/Welcome');

@@ -8,6 +8,7 @@ const ATypes = {
 
   beginRename: 'BEGIN RENAME',
   rename: 'RENAME',
-  endRename: 'END RENAME'
+  endRename: 'END RENAME',
+  cancelRename: 'CANCEL RENAME'
 };
 export default ATypes;
