@@ -2,6 +2,8 @@ import React from 'react';
 import { ExerciseRunner } from '../js/ExerciseRunner';
 import ProgressBar from '../components/ProgressBar.jsx';
 import { ExerciseView } from '../js/Exercise';
+import TimeBox from '../components/TimeBox.jsx';
+import CountBox from '../components/CountBox.jsx';
 
 export default class  FileRun extends React.Component {
     
@@ -20,6 +22,7 @@ export default class  FileRun extends React.Component {
                 if (this.state.exercise.hasFinished)
                 {
                     this.animator.stop();
+                    this.setInitialState();              
                 }
             };
     this.state = {
@@ -47,18 +50,50 @@ export default class  FileRun extends React.Component {
         exercise: new ExerciseView(this.props.exercise)
         });
   }
+        
+  get repeatTimeBoxState(){
+      
+      if (this.animator.canResume){
+          return 'pause'
+      }
+      
+      return this.state.exercise.isDelayPhase
+        ? 'delay'
+        : 'default';            
+  }
   
+  get repeatTimeBoxSec(){
+      return this.state.exercise.isDelayPhase
+        ? this.state.exercise.current.countDown
+        : this.state.exercise.repeatCountDownSec;            
+  }
+        
   render() {
     console.log('In render');
+    const states = ['dafault', 'delay', 'pause'];
     return (        
       <div>
         <div className="row">
             <div className="container">
-            <h1 className="text-center">Run2:</h1>
-                <div>Seconds Elapsed: {this.state.secondsElapsed}</div>                     
-                <div>CountDown: {this.state.exercise.countDown}</div>
-                <div>Count: {this.state.exercise.count}</div>
 
+                <div>
+                    <div className="col-xs-4 col-sm-4 timebox timebox-total">
+                    <TimeBox sec={this.state.exercise.totalSec} 
+                        state={
+                            this.animator.canResume
+                                ?'pause'
+                                :'default'
+                            } />
+                    </div>
+                    <div className="col-xs-4 col-sm-4 countbox">
+                    <CountBox count={this.state.exercise.countDown} />
+                    </div>
+                    <div className="col-xs-4 col-sm-4 timebox timebox-rest">
+                    <TimeBox sec={this.repeatTimeBoxSec} 
+                            state={this.repeatTimeBoxState} />
+                    </div>
+                </div>
+                <div>&nbsp;</div>
         {            
             this.state.exercise.phaseViews.map((phase, i)=>
                  <ProgressBar 
@@ -105,6 +140,16 @@ export default class  FileRun extends React.Component {
                    this.setInitialState();
                    }}
                    disabled={!this.animator.canStop}>Abort</button>                   
+
+&nbsp;
+                <button
+                    className='btn btn-default btn-lg btn-success'
+                onClick={(e) => {
+                   e.preventDefault(); 
+                   this.animator.stop();
+                   this.setInitialState();
+                   }}
+                   disabled={false}>Change (align me right)</button>                   
 
             </div>
         </div>
