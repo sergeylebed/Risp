@@ -3,41 +3,45 @@ import NumberPicker from './NumberPicker.jsx';
 
 const NumberPickerBar = (props) => {
   var { primaryIcon, secondaryIcon, onPrimaryIconClick, onSecondaryIconClick } = props;
-
+  
   return (
-    <ul className={'number-picker-bar ' + (props.vertical ? 'vertical list-unstyled' : 'list-inline')}>
+    <div className={'number-picker-bar ' + (props.vertical ? 'vertical list-unstyled' : 'row')}>
       {
         primaryIcon ? (
-          <li>
-            <button className='btn btn-default btn-lg'
+          <div className={ props.vertical ? '' : 'col-md-2 col-sm-4 col-xs-4' }>
+            <button className={'btn btn-default btn-lg' + (props.vertical ? ' full-width' : '')}
               onClick={onPrimaryIconClick}>
               {
                 primaryIcon
               }
             </button>
-          </li>
+          </div>
         )
         :
         []
       }
-      <li>
+      <div className={ props.vertical ? '' : 
+        'col-md-' + (12 - (primaryIcon ? 2 : 0) - (secondaryIcon ? 2 : 0)) +
+        ' col-sm-' + (12 - (primaryIcon ? 4 : 0) - (secondaryIcon ? 3 : 0)) +
+        ' col-xs-' + (12 - (primaryIcon ? 4 : 0) - (secondaryIcon ? 3 : 0)) 
+      }>
         <NumberPicker {...props} />
-      </li>
+      </div>
       {
         secondaryIcon ? (
-          <li className={props.right ? 'pull-right' : ''}>
-            <button className='btn btn-default btn-lg'
+          <div className={ (props.vertical ? '' : 'col-md-2 col-sm-3 col-xs-3')  + (props.right ? ' text-right' : '') }>
+            <button className={'btn btn-default btn-lg' + (props.vertical ? ' full-width' : '')}
               onClick={onSecondaryIconClick}>
               {
                 secondaryIcon
               }
             </button>
-          </li>
+          </div>
         )
         :
         []
       }
-    </ul>
+    </div>
   );
 };
 

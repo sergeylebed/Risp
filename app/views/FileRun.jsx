@@ -87,7 +87,7 @@ class FileRun extends React.Component {
   render() {
     const states = ['dafault', 'delay', 'pause'];
     return (        
-      <div className="container">
+      <div className="container-fluid">
         <div className="row" style={{marginBottom: '10px'}}>
           <div className="col-xs-6 col-sm-4 col-md-4 col-lg-4 timebox timebox-total">
             <TimeBox sec={this.state.exercise.totalSec} 
