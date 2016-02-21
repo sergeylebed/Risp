@@ -11,6 +11,10 @@ const ExerciseEditor = ({
   onPhasesChange,// (value)
   onPhaseChange,// (id, value)
 
+  onDelaySoundChange,// (boolean)
+  onCountSoundChange,// (boolean)
+  onPhaseSoundChange,// (id, boolean)
+
   onStart
 }) => {
 
@@ -22,7 +26,7 @@ const ExerciseEditor = ({
   const delayOptions = [
     [1, 2, 3, 4, 5, 7],
     new Array(30).fill(1).map((_, i) => (i + 1))
-    .concat(new Array(10).fill(1).map((_, i) => ((i+1)*5+30 )))    
+    .concat(new Array(10).fill(1).map((_, i) => ((i+1)*5+30 )))
   ];
 
   const phaseOptions = [
@@ -46,9 +50,6 @@ const ExerciseEditor = ({
             primaryIcon={
               <span>Phases</span>
             }
-            secondaryIcon={
-              <span className='glyphicon glyphicon-volume-off'></span>
-            }
 
             id='phases-selector'
             title='Phases'
@@ -71,7 +72,10 @@ const ExerciseEditor = ({
                 <span>Delay</span>
               }
               secondaryIcon={
-                <span className='glyphicon glyphicon-volume-off'></span>
+                <span className={'glyphicon ' + (exercise.delaySoundOn ? 'glyphicon-volume-up' : 'glyphicon-volume-off')}></span>
+              }
+              onSecondaryIconClick={
+                () => onDelaySoundChange(!exercise.delaySoundOn)
               }
 
               className='pull-right'
@@ -92,12 +96,15 @@ const ExerciseEditor = ({
         </div>
         <div className='col-md-8 col-sm-10 col-xs-10'>
           <ul className='list-group'>
-            {                
+            {
               exercise.phases.map((phase, id) => (
                 <li key={id} className='list-group-item'>
                   <NumberPickerBar
                     secondaryIcon={
-                      <span className='glyphicon glyphicon-volume-off'></span>
+                      <span className={'glyphicon ' + (phase.soundOn ? 'glyphicon-volume-up' : 'glyphicon-volume-off')}></span>
+                    }
+                    onSecondaryIconClick={
+                      () => onPhaseSoundChange(phase.id, !phase.soundOn)
                     }
 
                     id={'phase-selector-' + id}
@@ -123,7 +130,10 @@ const ExerciseEditor = ({
                 <span>Count</span>
               }
               secondaryIcon={
-                <span className='glyphicon glyphicon-volume-off'></span>
+                <span className={'glyphicon ' + (exercise.countSoundOn ? 'glyphicon-volume-up' : 'glyphicon-volume-off')}></span>
+              }
+              onSecondaryIconClick={
+                () => onCountSoundChange(!exercise.countSoundOn)
               }
 
               id='count-selector'
@@ -163,7 +173,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {    
+  return {
     onDelayChange: (value) => { dispatch(ExerciseActions.setDelay(value));},
     onCountChange: (value) => { dispatch(ExerciseActions.setCount(value)); },
     onPhasesChange: (value) => { dispatch(ExerciseActions.setPhases(value)); },
@@ -175,6 +185,6 @@ const mapDispatchToProps = (dispatch) => {
 let Editor = connect(
      mapStateToProps,
      mapDispatchToProps)
-    (ExerciseEditor); 
-    
+    (ExerciseEditor);
+
 export default Editor;
