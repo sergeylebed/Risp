@@ -39,10 +39,10 @@ Sammy('#content', function() {
     var phases = [
         new Phase(0, 4),
         new Phase(1, 2),
-        new Phase(2, 4),
-        new Phase(3, 10)
+        new Phase(2, 3),
+        new Phase(3, 5)
     ];
-    var exercise = new Exercise('test name', phases, 0, 10);     
+    var exercise = new Exercise('test name', phases, 0, 2);     
     ReactDOM.render(        
       <Shared context={context}>
         <FileRun store={ExerciseStore} exercise={exercise} />

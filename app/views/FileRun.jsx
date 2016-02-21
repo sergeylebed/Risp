@@ -17,6 +17,10 @@ export default class  FileRun extends React.Component {
                         exercise: this.state.exercise
                         
                     });
+                if (this.state.exercise.hasFinished)
+                {
+                    this.animator.stop();
+                }
             };
     this.state = {
         secondsElapsed: 0,
@@ -29,16 +33,31 @@ export default class  FileRun extends React.Component {
     this.animator.stop();    
   }
   
+  refreshState(){
+      this.setState({
+                        secondsElapsed: this.state.secondsElapsed,
+                        exercise: this.state.exercise
+                        
+                    });
+  }
+  
+  setInitialState(){
+      this.setState( {
+        secondsElapsed: 0,
+        exercise: new ExerciseView(this.props.exercise)
+        });
+  }
+  
   render() {
-    //var context = this.props.context;
-    //var file = this.state.file;
-    console.log('in render');
+    console.log('In render');
     return (        
       <div>
         <div className="row">
             <div className="container">
             <h1 className="text-center">Run2:</h1>
                 <div>Seconds Elapsed: {this.state.secondsElapsed}</div>                     
+                <div>CountDown: {this.state.exercise.countDown}</div>
+                <div>Count: {this.state.exercise.count}</div>
 
         {            
             this.state.exercise.phaseViews.map((phase, i)=>
@@ -56,28 +75,36 @@ export default class  FileRun extends React.Component {
                 onClick={(e) => {
                    e.preventDefault(); 
                    this.animator.play();
-                   }}>Go</button>                   
+                   this.refreshState();
+                   }}                   
+                disabled={!this.animator.canPlay}>Go</button>                   
 &nbsp;
                 <button
                     className='btn btn-default btn-lg btn-success'
                 onClick={(e) => {
                    e.preventDefault(); 
                    this.animator.pause();
-                   }}>Pause</button>
+                   this.refreshState();
+                   }} 
+                 disabled={!this.animator.canPause}>Pause</button>
 &nbsp;                   
                 <button
                     className='btn btn-default btn-lg btn-success'
                 onClick={(e) => {
                    e.preventDefault(); 
                    this.animator.resume();
-                   }}>Resume</button>                   
+                   this.refreshState();
+                   }}
+                   disabled={!this.animator.canResume}>Resume</button>                   
 &nbsp;
                 <button
                     className='btn btn-default btn-lg btn-success'
                 onClick={(e) => {
                    e.preventDefault(); 
                    this.animator.stop();
-                   }}>Abort</button>                   
+                   this.setInitialState();
+                   }}
+                   disabled={!this.animator.canStop}>Abort</button>                   
 
             </div>
         </div>

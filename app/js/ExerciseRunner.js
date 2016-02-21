@@ -28,16 +28,28 @@ export class ExerciseRunner {
         
     }
 
+    get canPlay(){
+        return !this.enabled  && this.isNotCreated;
+    }
+
     pause() {
         if (this.isNotCreated) return;
         this.enabled = false;
         this._disableTimer();
     }
 
+    get canPause(){
+        return this.enabled && !this.isNotCreated;
+    }
+    
     resume() {
         if (this.isNotCreated) return;
         this.enabled = true;
         this._enableTimer();
+    }
+
+    get canResume(){
+        return !this.enabled && !this.isNotCreated;
     }
 
     stop() {
@@ -45,6 +57,10 @@ export class ExerciseRunner {
         this.enabled = false;
         this._disableTimer();
         this.storage = undefined;
+    }
+
+    get canStop(){
+        return !this.isNotCreated;
     }
     
     tick() {        
