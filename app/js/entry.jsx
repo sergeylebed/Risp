@@ -11,8 +11,9 @@ import Runner from '../views/FileRun.jsx';
 import Test from '../views/Test.jsx';
 import Test2 from '../views/Test2.jsx';
 import Test3 from '../views/Test3.jsx';
+//import Editor from '../views/Editor.jsx';
+import ExerciseEditor from '../components/ExerciseEditor.jsx';
 import SoundTest from '../views/SoundTest.jsx';
-import Editor from '../views/Editor.jsx';
 
 import ExerciseStore from '../stores/ExerciseStore.js';
 
@@ -73,9 +74,9 @@ Sammy('#content', function() {
   this.get('#/Editor', (context) => {
     ReactDOM.render(
       <Provider store={Store}>
-        <Shared context={context}>
-          <Editor />
-        </Shared>
+      <Shared context={context}>
+        <ExerciseEditor />
+      </Shared>
       </Provider>,
       element
     );

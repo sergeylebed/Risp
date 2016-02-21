@@ -32,10 +32,44 @@ const sounds = {
         q         : 1
     },
     duration: 100
+  }),
+  "start": new Wad({
+    source: 'sawtooth',
+    volume: 1,
+    env: {
+      attack  : 0.0,
+      decay   : 0.5,
+      sustain : 0.5,
+      hold    : 0.5,
+      release : 0
+    },
+    filter  : {
+        type      : 'lowpass',
+        frequency : 700,
+        q         : 1
+    },
+    duration: 100
+  }),
+  "stop": new Wad({
+    source: 'sawtooth',
+    volume: 1,
+    env: {
+      attack  : 0.0,
+      decay   : 0.2,
+      sustain : 0.5,
+      hold    : 0.1,
+      release : 0
+    },
+    filter  : {
+        type      : 'highpass',
+        frequency : 800,
+        q         : 1
+    },
+    duration: 100
   })
 };
 
-class Player {
+class BasePlayer {
   constructor(sounds) {
     this._sounds = sounds;
     this._current = null;
@@ -45,22 +79,43 @@ class Player {
     return Object.keys(this._sounds);
   }
 
-  stop() {
+  _stop() {
     if(this._current !== null) {
       this._current.stop();
     }
   }
 
-  play(name, config) {
+  _play(name, config) {
     if(!this._sounds[name]) {
       return;
     }
 
-    this.stop();
+    this._stop();
     (this._current = this._sounds[name]).play();
   }
-
 }
 
-const SoundPlayer = new Player(sounds);
-export default SoundPlayer;
+class Player extends BasePlayer {
+  constructor(sounds) {
+    super(sounds);
+  }
+
+  tick() {
+    this._play('tick');
+  }
+
+  beep() {
+    this._play('beep');
+  }
+
+  start() {
+    this._play('start');
+  }
+
+  stop() {
+    this._stop('stop');
+  }
+}
+
+const Sounds = new Player(sounds);
+export default Sounds;

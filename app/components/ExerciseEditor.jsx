@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { connect } from 'react-redux'
+import { ExerciseActions } from '../store/actions';
 import NumberPickerBar from '../components/NumberPickerBar.jsx';
 
 const ExerciseEditor = ({
@@ -14,23 +15,26 @@ const ExerciseEditor = ({
 }) => {
 
   const phasesOptions = [
-    [1, 2, 3, 4, 5],
+    [1, 2, 3, 4, 5, 6, 7, 8],
     new Array(40).fill(1).map((_, i) => i + 1)
   ];
 
   const delayOptions = [
-    [1, 10, 20, 30],
-    new Array(40).fill(1).map((_, i) => (i * 5 || 1))
+    [1, 2, 3, 4, 5, 7],
+    new Array(30).fill(1).map((_, i) => (i + 1))
+    .concat(new Array(10).fill(1).map((_, i) => ((i+1)*5+30 )))    
   ];
 
   const phaseOptions = [
-    [1, 10, 20, 30],
-    new Array(40).fill(1).map((_, i) => (i * 5 || 1))
+    [1, 2, 3, 4, 5, 6, 7, 8],
+    new Array(30).fill(1).map((_, i) => (i + 1))
+    .concat(new Array(10).fill(1).map((_, i) => ((i+1)*5+30 )))
   ];
 
   const countOptions = [
-    [0, 10, 20, 30],
-    new Array(40).fill(1).map((_, i) => (i * 10 || 1))
+    [1, 2, 5, 10, 30, 60],
+    new Array(20).fill(1).map((_, i) => (i + 1))
+    .concat(new Array(20).fill(1).map((_, i) => ((i+1)*5+20 )))
   ];
 
   return (
@@ -88,7 +92,7 @@ const ExerciseEditor = ({
         </div>
         <div className='col-md-8 col-sm-10 col-xs-10'>
           <ul className='list-group'>
-            {
+            {                
               exercise.phases.map((phase, id) => (
                 <li key={id} className='list-group-item'>
                   <NumberPickerBar
@@ -152,4 +156,25 @@ const ExerciseEditor = ({
   );
 };
 
-export default ExerciseEditor;
+const mapStateToProps = (state) => {
+    return {
+    exercise: state.currentExercise
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {    
+    onDelayChange: (value) => { dispatch(ExerciseActions.setDelay(value));},
+    onCountChange: (value) => { dispatch(ExerciseActions.setCount(value)); },
+    onPhasesChange: (value) => { dispatch(ExerciseActions.setPhases(value)); },
+    onPhaseChange: (id, value) => { dispatch(ExerciseActions.setPhase(id, value)); },
+    onStart: () => { console.log('start!'); }    
+  }
+}
+
+let Editor = connect(
+     mapStateToProps,
+     mapDispatchToProps)
+    (ExerciseEditor); 
+    
+export default Editor;
