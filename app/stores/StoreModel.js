@@ -1,3 +1,5 @@
+import FileModel from './FileModel.js'
+
 export default class StoreModel {
   constructor(files, file) {
     this._files = files;

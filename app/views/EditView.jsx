@@ -83,7 +83,6 @@ const EditView = ({ name, file, onClose, onSave, onBeginRename, onRename, onEndR
               (file.phases() || []).map((phase, id) => (
                 <li className='list-group-item'>
                   <NumberPicker
-                    key={id}
                     begin={1}
                     step={1}
                     number={5}
