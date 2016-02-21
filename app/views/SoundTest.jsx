@@ -9,7 +9,7 @@ const SoundTest = () => {
           <li className='list-group-item'>
             <div className='btn-group'>
               <button className='btn btn-default'>{name}</button>
-              <button className='btn btn-default btn-success' onClick={() => Sounds._play(name)}>Play</button>
+              <button className='btn btn-success' onClick={() => Sounds._play(name)}>Play</button>
             </div>
           </li>
         ))

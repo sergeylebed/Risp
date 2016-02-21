@@ -29,7 +29,7 @@ const NumberPicker = ({
             return (
               <button
                 key={i}
-                className={'btn btn-default' + (active ? ' btn-primary' : '')}
+                className={'btn ' + (active ? ' btn-primary' : 'btn-default')}
                 onClick={() => onSelect(val)}>
                 {
                   val
@@ -42,7 +42,7 @@ const NumberPicker = ({
           (!oneActive && value ?
             (
               <button
-                className='btn btn-default btn-primary'
+                className='btn btn-primary'
                 data-toggle='modal'
                 data-target={'#' + id}>
                 {value}

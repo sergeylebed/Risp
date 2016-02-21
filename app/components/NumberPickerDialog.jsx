@@ -41,7 +41,7 @@ const NumberPickerDialog = ({
                               return (
                                 <td key={colId}>
                                   <button
-                                    className={'btn btn-default' + (active ? ' btn-primary' : '')}
+                                    className={'btn ' + (active ? ' btn-primary' : 'btn-default')}
                                     data-dismiss='modal'
                                     onClick={() => onSelect(options[id])}>
                                     {

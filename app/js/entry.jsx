@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import Shared from '../views/Shared.jsx'
 import Welcome from '../views/Welcome.jsx';
 import Runner from '../views/FileRun.jsx';
+import Feedback from '../components/Feedback.jsx';
 
 import Test from '../views/Test.jsx';
 import Test2 from '../views/Test2.jsx';
@@ -90,6 +91,15 @@ Sammy('#content', function() {
       element
     );
   });
+
+  this.get('#/FeedbackTest', (context) => {
+    ReactDOM.render(
+      <Shared context={context}>
+        <Feedback name='Fedor' email='' plot='Plot...'/>
+      </Shared>,
+      element
+    );
+  })
 
   this.get('', (context) => {
     context.redirect('#/Welcome');
