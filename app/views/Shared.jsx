@@ -46,7 +46,7 @@ const Shared = ({ context, children }) => {
           <div className='container'>
             <ul className="nav navbar-nav">
               <li><a href='#'
-                onClick={(e) => { e.preventDefault(); context.redirect('#/Welcome'); }}>About</a></li>
+                onClick={(e) => { e.preventDefault(); context.redirect('#/View'); }}>About</a></li>
               <li><a href='#'
                 onClick={(e) => { e.preventDefault(); context.redirect('#/Welcome'); }}>Tell us</a></li>
               <li><a href='#'

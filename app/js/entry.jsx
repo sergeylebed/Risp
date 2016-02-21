@@ -1,42 +1,39 @@
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
+import Sammy from 'sammy';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Router from '../components/Router.jsx';
+import Shared from '../views/Shared.jsx'
+import FileView from '../views/FileView.jsx';
+import Welcome from '../views/Welcome.jsx';
 
-import { ActionTypes, ExerciseStore } from '../stores/ExerciseStore.js';
+import ExerciseStore from '../stores/ExerciseStore.js';
 
-function save({ fileName, file }) {
-  ExerciseStore.dispatch({
-    type: ActionTypes.save,
-    name: fileName,
-    data: file
+Sammy('#content', function() {
+  var element = this.$element()[0];
+
+  this.get('#/Welcome', (context) => {
+    ReactDOM.render(
+      <Shared context={context}>
+        <Welcome />
+      </Shared>,
+      element
+    )
   });
-}
 
-function remove({ fileName }) {
-  ExerciseStore.dispatch({
-    type: ActionTypes.remove,
-    name: fileName
+  this.get('#/View', (context) => {
+    ReactDOM.render(
+      <Shared context={context}>
+        <FileView store={ExerciseStore} />
+      </Shared>,
+      element
+    );
   });
-}
 
-function rename({ oldName, name, data }) {
-  ExerciseStore.dispatch({
-    type: ActionTypes.rename,
-    name,
-    oldName,
-    data
+  this.get('', (context) => {
+    context.redirect('#/Welcome');
   });
-}
-
-ReactDOM.render(
-  <Router
-    store={ExerciseStore}
-    onSave={save}
-    onRemove={remove}
-    onRename={rename}/>,
-  document.getElementById('content')
-);
+}).run();
