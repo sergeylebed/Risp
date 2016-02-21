@@ -21,16 +21,14 @@ export default class ProgressBar extends React.Component {
   render() {
     return(
     <div className={'row phase-run' + (this.props.active ? ' phase-active' : '')}>
-      <div className='col-md-1 col-lg-1 phase-number'>
-	  	<ProgressBarNumber num={this.props.number} />
+      <div className='col-xs-1 col-sm-1 col-md-1 col-lg-1 phase-number'>
+	  	  <ProgressBarNumber num={this.props.number} />
       </div>
-      <div className="col-md-10 col-lg-10">
-        <div className= 'progressbar'>
-          <ProgressbarPhases count={this.props.value} position={this.props.position} active={this.props.active} />
-        </div>
+      <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10 progressbar">
+        <ProgressbarPhases count={this.props.value} position={this.props.position} active={this.props.active} />
       </div>
-      <div className='col-md-1 col-lg-1 phase-number'>
-	  	<ProgressBarCounter value={this.props.value - this.props.position} />
+      <div className='col-xs-1 col-sm-1 col-md-1 col-lg-1 phase-counter'>
+	  	  <ProgressBarCounter value={this.props.value - this.props.position} />
       </div>
     </div>
     );

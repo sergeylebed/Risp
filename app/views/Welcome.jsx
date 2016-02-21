@@ -4,7 +4,7 @@ export default function Welcome({ context }) {
   return (
     <div className="row">
       <div className="container">
-        <button className="btn btn-success btn-lg btn-block" onClick={() => { context.redirect('#/View'); }}>Start exercises now</button>
+        <button className="btn btn-success btn-lg btn-block" onClick={() => { context.redirect('#/Editor'); }}>Start exercises now</button>
         <h1 className="text-center">Introduction:</h1>
         <p className="lead" style={{fontSize: '2em', textAlign: 'center'}}>
           RISP helps you doing your exercises.<br />

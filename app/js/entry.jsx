@@ -2,17 +2,21 @@ import Sammy from 'sammy';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
 
 import Shared from '../views/Shared.jsx'
 import Welcome from '../views/Welcome.jsx';
-import FileRun from '../views/FileRun.jsx';
+import Runner from '../views/FileRun.jsx';
 
 import Test from '../views/Test.jsx';
 import Test2 from '../views/Test2.jsx';
 import Test3 from '../views/Test3.jsx';
 import SoundTest from '../views/SoundTest.jsx';
+import Editor from '../views/Editor.jsx';
 
 import ExerciseStore from '../stores/ExerciseStore.js';
+
+import Store from '../store/RispStore.js';
 
 import { Exercise, Phase } from '../js/Exercise';
 
@@ -36,11 +40,14 @@ Sammy('#content', function() {
         new Phase(2, 3),
         new Phase(3, 5)
     ];
+
     var exercise = new Exercise('test name', phases, 5, 2);
     ReactDOM.render(
+    <Provider store={Store}>
       <Shared context={context}>
-        <FileRun store={ExerciseStore} exercise={exercise} />
-      </Shared>,
+        <Runner exercise={exercise} />
+      </Shared>
+    </Provider>,
       element
     );
   });
@@ -63,11 +70,13 @@ Sammy('#content', function() {
     );
   });
 
-  this.get('#/Test3', (context) => {
+  this.get('#/Editor', (context) => {
     ReactDOM.render(
+      <Provider store={Store}>
       <Shared context={context}>
-        <Test3 />
-      </Shared>,
+        <Editor />
+      </Shared>
+      </Provider>,
       element
     );
   });
