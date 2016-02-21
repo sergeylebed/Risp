@@ -6,39 +6,39 @@ export default class Exercise {
   }
 
   restTime(value) {
-    if(value !== undefined) {
-      return new Exercise(value, this._phases, this._repeat);
+    if(value === undefined) {
+      return this._restTime;
     }
     else {
-      return this._restTime;
+      return new Exercise(value, this._phases, this._repeat);
     }
   }
 
   phases(size) {
-    if(size !== undefined) {
+    if(size === undefined) {
+      return this._phases;
+    } else {
       var value = (this._phases || []).slice(0, size);
       if(value.length < size) {
         value = [...value, ...new Array(size - value.length).fill(null)];
       }
       return new Exercise(this._restTime, value, this._repeat);
-    } else {
-      return this._phases;
     }
   }
 
   phase(id, value) {
-    if(value !== undefined) {
-      return new Exercise(this._restTime, this._phases.map((v, i) => i === id ? value : v), this._repeat);
-    } else {
+    if(value === undefined) {
       return this._phases[id];
+    } else {
+      return new Exercise(this._restTime, this._phases.map((v, i) => i === id ? value : v), this._repeat);
     }
   }
 
   repeat(value) {
-    if(value !== undefined) {
-      return new Exercise(this._restTime, this._phases, value);
-    } else {
+    if(value === undefined) {
       return this._repeat;
+    } else {
+      return new Exercise(this._restTime, this._phases, value);
     }
   }
 

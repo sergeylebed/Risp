@@ -1,47 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import FileEdit from '../views/FileEdit.jsx';
-import FileList from '../views/FileList.jsx';
+import EditView from '../views/EditView.jsx';
+import ListView from '../views/ListView.jsx';
 
 import ATypes from '../stores/ATypes.js';
 import Exercise from '../stores/Exercise.js';
 
 export default class FileView extends React.Component {
+  // { store }
   constructor(props) {
     super(props);
 
     var handlers = [
-      'handleCreate',
+      'handleNew',
       'handleOpen',
-      'handleRemove',
+      'handleDelete',
+
       'handleClose',
+      'handleSave',
+
+      'handleBeginRename',
       'handleRename',
-      'handleSave'
+      'handleEndRename'
     ];
 
 
     handlers.forEach((key) => {
       this[key] = this[key].bind(this);
     });
+
+    this.props.store.subscribe(() => this.forceUpdate());
   }
 
-  componentDidMount() {
-    this.setState({
-      unsubscribe: this.props.store.subscribe(() => { this.forceUpdate(); })
-    });
-  }
-
-  componentWillUnmount() {
-    this.state.unsubscribe();
-  }
-
-  handleCreate() {
+  handleNew() {
     var store = this.props.store;
     store.dispatch({
-      type: ATypes.open,
-      name: '',
-      data: new Exercise(null, null, null)
+      type: ATypes.new
     });
   }
 
@@ -53,10 +48,10 @@ export default class FileView extends React.Component {
     });
   }
 
-  handleRemove(name) {
+  handleDelete(name) {
     var store = this.props.store;
     store.dispatch({
-      type: ATypes.remove,
+      type: ATypes.del,
       name
     });
   }
@@ -68,45 +63,63 @@ export default class FileView extends React.Component {
     });
   }
 
-  handleRename(name) {
-    var store = this.props.store;
-    store.dispatch({
-      type: ATypes.rename,
-      oldName: store.getState().current(),
-      newName: name
-    });
-  }
-
   handleSave(data) {
     var store = this.props.store;
     store.dispatch({
       type: ATypes.save,
-      name: store.getState().current(),
       data
+    });
+  }
+
+  handleBeginRename() {
+    var store = this.props.store;
+    store.dispatch({
+      type: ATypes.beginRename
+    });
+  }
+
+  handleRename(name) {
+    var store = this.props.store;
+    store.dispatch({
+      type: ATypes.rename,
+      name
+    });
+  }
+
+  handleEndRename() {
+    var store = this.props.store;
+    store.dispatch({
+      type: ATypes.endRename
     });
   }
 
   render() {
     var state = this.props.store.getState();
-    if(state.current() === null) {
-      return (
-        <FileList
-          files={state.files().filter((file) => file.trim() !== '')}
+    switch(state._mode()) {
+      case 'list':
+        return (
+          <ListView
+            files={state.files().files()}
 
-          onCreate={this.handleCreate}
-          onOpen={this.handleOpen}
-          onRemove={this.handleRemove}/>
-      );
-    } else {
-      return (
-        <FileEdit
-          fileName={state.current()}
-          file={state.file(state.current())}
+            onCreate={this.handleNew}
+            onOpen={this.handleOpen}
+            onRemove={this.handleDelete}/>
+        );
 
-          onClose={this.handleClose}
-          onSave={this.handleSave}
-          onRename={this.handleRename}/>
-      );
+      case 'open':
+        return (
+          <EditView
+            name={state.currentName()}
+            file={state.currentFile()}
+
+            onClose={this.handleClose}
+            onSave={this.handleSave}
+            onBeginRename={this.handleBeginRename}
+            onRename={this.handleRename}
+            onEndRename={this.handleEndRename}
+
+            onStart={() => console.log('starting...')}/>
+        );
     }
   }
 }

@@ -1,18 +1,18 @@
 import React from 'react';
 
-const FileList = ({ files, onCreate, onOpen, onRemove }) => {
+const ListView = ({ files, onCreate, onOpen, onRemove }) => {
   return (
     <div className='row file-list'>
       <div className='col-md-8 col-md-offset-2'>
         <div className='list-group'>
           {
-            files.map((file) => (
+            files.filter((file) => file.trim() !== '').map((file) => (
               <div className='list-group-item'>
                 <div className='btn-group btn-group-lg clearfix'>
                   <button className='btn btn-default file-list-item-title'
-                    onClick={(e) => { e.preventDefault(); onOpen(file); }}>{file}</button>
+                    onClick={() => onOpen(file)}>{file}</button>
                   <button className='btn btn-default file-list-item-remove'
-                    onClick={(e) => { e.preventDefault(); onRemove(file); }}>
+                    onClick={(e) => onRemove(file)}>
                     <span className="glyphicon glyphicon-remove" aria-hidden></span>
                   </button>
                 </div>
@@ -33,4 +33,4 @@ const FileList = ({ files, onCreate, onOpen, onRemove }) => {
   );
 };
 
-export default FileList;
+export default ListView;

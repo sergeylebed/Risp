@@ -1,6 +1,3 @@
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-
 import Sammy from 'sammy';
 
 import React from 'react';
