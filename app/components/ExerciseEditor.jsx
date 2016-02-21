@@ -149,12 +149,14 @@ const ExerciseEditor = ({
                 vertical
   
                 onSelect={(value) => onDelayChange(value)}/>
-            <button
-              className='btn btn-default btn-lg btn-success'
-              onClick={onStart}
-              style={{fontSize: '2em'}}>
-              Start
-            </button>
+            <div className="h-btn-start">
+              <button
+                className='btn btn-default btn-lg btn-success'
+                onClick={onStart}
+                style={{fontSize: '2em'}}>
+                Start
+              </button>
+            </div>
         </div>
       </div>
     </div>
