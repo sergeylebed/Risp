@@ -5,35 +5,9 @@ const Shared = ({ context, children }) => {
 
   return (
     <div>
-      <div className='row'>
-        <nav className='navbar navbar-default'>
-          <div className='container'>
-            <div className="navbar-header">
-              <a className="navbar-brand" href='#'
-                onClick={(e) => { e.preventDefault(); context.redirect('#/Welcome'); }}>
-                <span className="glyphicon glyphicon-home" aria-hidden="true"></span> RISP
-              </a>
-            </div>
-          </div>
-        </nav>
-      </div>
-      <div className='row'>
-        {
-          clonedChildren
-        }
-      </div>
-      <div className='row'>
-        <div className='navbar navbar-default navbottom'>
-          <div className='container'>
-            <ul className="nav navbar-nav">
-              <li><a href='#'
-                onClick={(e) => { e.preventDefault(); context.redirect('#/View'); }}>About</a></li>
-              <li><a href='#'
-                onClick={(e) => { e.preventDefault(); context.redirect('#/Welcome'); }}>Tell us</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      {
+        clonedChildren
+      }
     </div>
   );
 };
