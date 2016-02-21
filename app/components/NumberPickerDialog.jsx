@@ -61,7 +61,7 @@ const NumberPickerDialog = ({
             </div>
           </div>
           <div className='row menu'>
-            <div className='col-md-6'>
+            <div className='col-sm-10'>
               <div className='input-group'>
                 <input
                   className={'form-control' + (!activeAny ? ' active' : '')}
@@ -81,7 +81,7 @@ const NumberPickerDialog = ({
                 </div>
               </div>
             </div>
-            <div className='col-md-6'>
+            <div className='col-sm-2'>
               <div className='btn-group'>
                 <button className='btn btn-default' data-dismiss='modal'>Ok</button>
               </div>
