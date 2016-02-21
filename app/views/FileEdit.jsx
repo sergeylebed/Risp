@@ -192,8 +192,14 @@ export default class FileEdit extends React.Component {
           <div className='col-md-8 col-sm-10 col-xs-10'>
             <button
               className='btn btn-default btn-lg btn-success'
-              onClick={(e) => { e.preventDefault(); context.redirect('#/Test', { id: this.state.fileName }); }}
+              onClick={(e) => { e.preventDefault(); context.redirect('#/Run', { id: this.state.fileName }); }}
               disabled={!file.valid()}>Start</button>
+            &nbsp;
+            <button
+              className='btn btn-default btn-lg btn-success'
+              onClick={(e) => { e.preventDefault(); context.redirect('#/Test', { id: this.state.fileName }); }}
+              disabled={!file.valid()}>Test</button>
+              
           </div>
           <div className='col-md-2 col-sm-1 col-xs-1'></div>
         </div>

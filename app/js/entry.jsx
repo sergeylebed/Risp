@@ -9,6 +9,8 @@ import ReactDOM from 'react-dom';
 import Shared from '../views/Shared.jsx'
 import FileView from '../views/FileView.jsx';
 import Welcome from '../views/Welcome.jsx';
+import FileRun from '../views/FileRun.jsx';
+import Test from '../views/Test.jsx';
 
 import ExerciseStore from '../stores/ExerciseStore.js';
 
@@ -32,6 +34,25 @@ Sammy('#content', function() {
       element
     );
   });
+
+  this.get('#/Run', (context) => {
+    ReactDOM.render(
+      <Shared context={context}>
+        <FileRun store={ExerciseStore} />
+      </Shared>,
+      element
+    );
+  });
+
+  this.get('#/Test', (context) => {
+    ReactDOM.render(
+      <Shared context={context}>
+        <Test store={ExerciseStore} />
+      </Shared>,
+      element
+    );
+  });
+
 
   this.get('', (context) => {
     context.redirect('#/Welcome');
