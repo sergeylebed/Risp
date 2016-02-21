@@ -10,7 +10,9 @@ import Runner from '../views/FileRun.jsx';
 
 import Test from '../views/Test.jsx';
 import Test2 from '../views/Test2.jsx';
-import Editor from '../views/Editor.jsx';
+import Test3 from '../views/Test3.jsx';
+//import Editor from '../views/Editor.jsx';
+import ExerciseEditor from '../components/ExerciseEditor.jsx';
 
 import ExerciseStore from '../stores/ExerciseStore.js';
 
@@ -58,10 +60,10 @@ Sammy('#content', function() {
     );
   });
 
-  this.get('#/Test2', (context) => {
+  this.get('#/Test3', (context) => {
     ReactDOM.render(
       <Shared context={context}>
-        <Test2 />
+        <Test3 />
       </Shared>,
       element
     );
@@ -71,7 +73,7 @@ Sammy('#content', function() {
     ReactDOM.render(
       <Provider store={Store}>
       <Shared context={context}>
-        <Editor />
+        <ExerciseEditor />
       </Shared>
       </Provider>,
       element
