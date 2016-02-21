@@ -1,16 +1,24 @@
 export class Exercise {
 
-    constructor(name, phases = [], delaySec, count) {
+    constructor(
+        name, 
+        phases = [], 
+        delaySec = 2, 
+        count = 1, 
+        delaySoundOn = true,
+        countSoundOn = true) {
         this.name = name;
         this.phases = phases;
         this.delaySec = delaySec;
+        this.delaySoundOn = delaySoundOn;        
         this.count = count;
+        this.countSoundOn = countSoundOn;
     }
 
     setPhases(number) {
         this.phases = this.phases.slice(0, number - 1);
         for (var index = 0; index < number; index++) {
-            if (!this.phases) {
+            if (!this.phases[index]) {
                 this.phases[index] = new Phase(index, 1);
             }
 
@@ -25,17 +33,19 @@ export class Exercise {
 
 export class Phase {
 
-    constructor(id, durationSec) {
+    constructor(id, durationSec, soundOn) {
         this.id = id;
         this.durationSec = durationSec;
+        this.soundOn = soundOn;
     }
 }
 
 export class PhaseView extends Phase {
 
-    constructor(id, durationSec) {
+    constructor(id, durationSec, isDelayPhase = false) {
         super(id, durationSec);
         this.countDown = durationSec;
+        this.isDelayPhase = isDelayPhase;
     }
 
     get hasFinished() {
@@ -63,12 +73,15 @@ export class ExerciseView {
         this.name = exercise.name;
         this.count = 0;
         this.countDown = exercise.count;
+        this.delaySoundOn = exercise.delaySoundOn;        
+        this.countSoundOn = exercise.countSoundOn;
+        
         this.totalSec = 0;
         this.repeatSec = 0;                
         this.repeatDurationSec = 0;
-        this.phaseViews = [];
+        this.phaseViews = [];        
         exercise.phases.forEach(function (phase) {            
-            this.phaseViews[phase.id] = new PhaseView(phase.id, phase.durationSec);
+            this.phaseViews[phase.id] = new PhaseView(phase.id, phase.durationSec, true);
             this.repeatDurationSec += phase.durationSec;
         }, this);
         
@@ -76,7 +89,7 @@ export class ExerciseView {
                 
         if (exercise.delaySec>0)
         {
-            this.deleayPhaseView = new PhaseView(-1, exercise.delaySec);
+            this.deleayPhaseView = new PhaseView(-1, exercise.delaySec, exercise.delaySoundOn);
             this.current = this.deleayPhaseView;
         } else {
             this.current = this.phaseViews[0];    
