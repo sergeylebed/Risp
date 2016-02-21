@@ -125,7 +125,7 @@ class FileRun extends React.Component {
                 this.animator.play();
                 this.refreshState();
               }}                   
-              disabled={!this.animator.canPlay}><span className="glyphicon glyphicon-play" aria-hidden="true"></span> Go</button>
+              disabled={!this.animator.canPlay && !this.animator.canResume}><span className="glyphicon glyphicon-play" aria-hidden="true"></span> Go</button>
             <button
               className='btn btn-default btn-lg btn-success'
               onClick={(e) => {
