@@ -6,33 +6,23 @@ const NumberPicker = ({
   title,
 
   value,
-  begin,
-  step,
-  number,
+  options,
+  dialogOptions,
 
-  rows,
   columns,
 
   vertical,
-  first,
-
-  className,
 
   onSelect
 }) => {
 
   var oneActive = false;
-  var dialogBegin = begin + step * (number + 1);
 
   return (
     <div>
-      <div className={(vertical ? 'btn-group-vertical' : 'btn-group') + ' btn-group-lg ' + className}>
+      <div className={(vertical ? 'btn-group-vertical' : 'btn-group') + ' btn-group-lg'}>
         {
-          new Array(number).fill(null).map((_, i) => {
-            var val = begin + step * i;
-            if(first && val === 0) {
-              val = 1;
-            }
+          options.map((val, i) => {
 
             var active = val === value;
             oneActive = oneActive || active;
@@ -40,7 +30,7 @@ const NumberPicker = ({
             return (
               <button
                 className={'btn btn-default' + (active ? ' btn-primary' : '')}
-                onClick={((val) => () => onSelect(val))(val)}>
+                onClick={() => onSelect(val)}>
                 {
                   val
                 }
@@ -71,12 +61,12 @@ const NumberPicker = ({
       <div className="modal fade" id={id} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
         <NumberPickerDialog
           title={title}
-          first={first}
-          rows={rows}
+
           columns={columns}
-          begin={dialogBegin}
-          step={step}
+          options={dialogOptions}
+
           value={value}
+
           onSelect={onSelect}/>
       </div>
     </div>

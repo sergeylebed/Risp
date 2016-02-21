@@ -9,11 +9,9 @@ const Test2 = () => {
         title='Hello'
 
         value={10}
-        begin={0}
-        step={5}
-        number={6}
+        options={[1, 2, 3]}
+        dialogOptions={[4, 5, 6]}
 
-        rows={7}
         columns={8}
 
         vertical={false}
