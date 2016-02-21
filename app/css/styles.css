@@ -3,6 +3,9 @@
 .progressbar .btn-group { padding: 0 5px; }
 .progressbar button { width: 100%; color: transparent; }
 .phase-active { outline: #f00 solid 2px; }
+.phase-run .phase-number {padding-left: 10px; padding-right: 0}
+.phase-run .progressbar {padding-left: 0; padding-right: 0}
+.phase-run .phase-counter {padding-left: 0; padding-right: 10px}
 .pbar-number { 
 	height: 36px;
 	padding: 6px;
@@ -29,6 +32,7 @@
 }
 .countbox, .timebox {
 	text-align: center;
+	margin-bottom: 10px;
 }
 .countbox div, .timebox div {
 	font-size: 3em !important;
@@ -36,16 +40,20 @@
 	color: #000000;
 	background-color: #ffffff;
 	padding: 20px;
-	outline: #ccc 3px solid;
-	display: inline-block;
-    min-width: 130px;
+	border: #ccc 3px solid;
+	min-width: 50px;
 }
 .timebox .timebox-default {}
 .timebox .timebox-pause {
 	background-color: #dfd;
-	outline-color: #0a0;
+	border-color: #0a0;
 }
 .timebox .timebox-delay {
 	background-color: #ffd;
-	outline-color: #f00;
+	border-color: #f00;
 }
+.col-btnchange {text-align: right;}
+.row.phase-run {
+    margin: 0px 0px;
+}
+.player-buttons {margin-top:20px;}

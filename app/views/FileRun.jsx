@@ -72,28 +72,24 @@ export default class  FileRun extends React.Component {
     console.log('In render');
     const states = ['dafault', 'delay', 'pause'];
     return (        
-      <div>
-        <div className="row">
-            <div className="container">
-
-                <div>
-                    <div className="col-xs-4 col-sm-4 timebox timebox-total">
-                    <TimeBox sec={this.state.exercise.totalSec} 
-                        state={
-                            this.animator.canResume
-                                ?'pause'
-                                :'default'
-                            } />
-                    </div>
-                    <div className="col-xs-4 col-sm-4 countbox">
-                    <CountBox count={this.state.exercise.countDown} />
-                    </div>
-                    <div className="col-xs-4 col-sm-4 timebox timebox-rest">
-                    <TimeBox sec={this.repeatTimeBoxSec} 
-                            state={this.repeatTimeBoxState} />
-                    </div>
-                </div>
-                <div>&nbsp;</div>
+      <div className="container">
+        <div className="row" style={{marginBottom: '10px'}}>
+          <div className="col-xs-6 col-sm-4 col-md-4 col-lg-4 timebox timebox-total">
+            <TimeBox sec={this.state.exercise.totalSec} 
+              state={
+                this.animator.canResume
+                  ?'pause'
+                  :'default'
+            } />
+          </div>
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 countbox">
+            <CountBox count={this.state.exercise.countDown} />
+          </div>
+          <div className="col-xs-6 col-sm-4 col-md-4 col-lg-4 timebox timebox-rest">
+            <TimeBox sec={this.repeatTimeBoxSec} 
+              state={this.repeatTimeBoxState} />
+          </div>
+        </div>
         {            
             this.state.exercise.phaseViews.map((phase, i)=>
                  <ProgressBar 
@@ -103,56 +99,56 @@ export default class  FileRun extends React.Component {
                     position={phase.counter} 
                     active={phase===this.state.exercise.current} />            
             )
-        }      
-<br />
-                <button
-                    className='btn btn-default btn-lg btn-success'
-                onClick={(e) => {
-                   e.preventDefault(); 
-                   this.animator.play();
-                   this.refreshState();
-                   }}                   
-                disabled={!this.animator.canPlay}>Go</button>                   
-&nbsp;
-                <button
-                    className='btn btn-default btn-lg btn-success'
-                onClick={(e) => {
-                   e.preventDefault(); 
-                   this.animator.pause();
-                   this.refreshState();
-                   }} 
-                 disabled={!this.animator.canPause}>Pause</button>
-&nbsp;                   
-                <button
-                    className='btn btn-default btn-lg btn-success'
-                onClick={(e) => {
-                   e.preventDefault(); 
-                   this.animator.resume();
-                   this.refreshState();
-                   }}
-                   disabled={!this.animator.canResume}>Resume</button>                   
-&nbsp;
-                <button
-                    className='btn btn-default btn-lg btn-success'
-                onClick={(e) => {
-                   e.preventDefault(); 
-                   this.animator.stop();
-                   this.setInitialState();
-                   }}
-                   disabled={!this.animator.canStop}>Abort</button>                   
-
-&nbsp;
-                <button
-                    className='btn btn-default btn-lg btn-success'
-                onClick={(e) => {
-                   e.preventDefault(); 
-                   this.animator.stop();
-                   this.setInitialState();
-                   }}
-                   disabled={false}>Change (align me right)</button>                   
-
-            </div>
-        </div>
+        }
+        <div className="row player-buttons">  
+          <div className='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+            <button
+              className='btn btn-default btn-lg btn-success'
+              onClick={(e) => {
+                e.preventDefault(); 
+                this.animator.play();
+                this.refreshState();
+              }}                   
+              disabled={!this.animator.canPlay}>Go</button>
+            &nbsp;
+            <button
+              className='btn btn-default btn-lg btn-success'
+              onClick={(e) => {
+                  e.preventDefault(); 
+                  this.animator.pause();
+                  this.refreshState();
+              }} 
+              disabled={!this.animator.canPause}>Pause</button>
+            &nbsp;
+            <button
+              className='btn btn-default btn-lg btn-success'
+              onClick={(e) => {
+                e.preventDefault(); 
+                this.animator.resume();
+                this.refreshState();
+              }}
+            disabled={!this.animator.canResume}>Resume</button>                   
+          &nbsp;
+            <button
+              className='btn btn-default btn-lg btn-success'
+              onClick={(e) => {
+                e.preventDefault(); 
+                this.animator.stop();
+                this.setInitialState();
+              }}
+              disabled={!this.animator.canStop}>Abort</button>                   
+          </div>                   
+          <div className='col-xs-12 col-sm-1 col-md-2 col-lg-2 col-btnchange'>
+            <button
+              className='btn btn-default btn-lg btn-success'
+              onClick={(e) => {
+                e.preventDefault(); 
+                this.animator.stop();
+                this.setInitialState();
+              }}
+              disabled={false}>Change</button>
+          </div>     
+        </div>     
       </div>
     );
   }
