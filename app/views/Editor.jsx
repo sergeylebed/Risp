@@ -2,7 +2,7 @@ import React from 'react';
 import { Exercise, Phase } from '../js/Exercise.js';
 import ExerciseEditor from '../components/ExerciseEditor.jsx';
 import { connect } from 'react-redux'
-import { setCurrentExercise } from '../store/actions'; 
+import { setCurrentExercise } from '../store/actions';
 
 let Editor = (exercise, onChange) => {
 //  var e = new Exercise('fedor', [new Phase(0, 1), new Phase(1, 2)], 10, 20);
@@ -15,7 +15,7 @@ let Editor = (exercise, onChange) => {
 };
 
 const mapStateToProps = (state) => {
-    
+
   console.log(state.currentExercise);
   return {
     exercise: state.currentExercise
@@ -33,5 +33,5 @@ const mapDispatchToProps = (dispatch) => {
 Editor = connect(
      mapStateToProps,
      mapDispatchToProps)
-    (Editor); 
+    (Editor);
 export default Editor;

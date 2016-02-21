@@ -1,24 +1,35 @@
 const sounds = {
-  "beep-1": new Wad({
-    source: '../vendor/sounds/beep-07.mp3'
-  }),
-  "beep-2": new Wad({
-    source: '../vendor/sounds/beep-08.mp3'
-  }),
-  "beep-3": new Wad({
+  "beep": new Wad({
     source: 'triangle',
-    volume: 2,
+    volume: 1,
     env: {
       attack  : 0.0,
       decay   : 0.0,
-      sustain : 0.2,
+      sustain : 0.5,
       hold    : 0.1,
       release : 0
     },
     filter  : {
         type      : 'lowpass',
+        frequency : 7000,
+        q         : 1
+    },
+    duration: 100
+  }),
+  "tick": new Wad({
+    source: 'sawtooth',
+    volume: 1,
+    env: {
+      attack  : 0.0,
+      decay   : 0.0,
+      sustain : 0.5,
+      hold    : 0.1,
+      release : 0
+    },
+    filter  : {
+        type      : 'highpass',
         frequency : 700,
-        q         : 3
+        q         : 1
     },
     duration: 100
   })

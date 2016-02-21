@@ -27,7 +27,7 @@ const NumberPickerDialog = ({
                 <tbody>
                   {
                     new Array(rows).fill(null).map((_, rowId) => (
-                      <tr>
+                      <tr key={rowId}>
                         {
                           new Array(columns).fill(null).map((_, colId) => {
                             var id = rowId * columns + colId;
@@ -39,7 +39,7 @@ const NumberPickerDialog = ({
                               activeAny = activeAny || active;
 
                               return (
-                                <td>
+                                <td key={colId}>
                                   <button
                                     className={'btn btn-default' + (active ? ' btn-primary' : '')}
                                     data-dismiss='modal'

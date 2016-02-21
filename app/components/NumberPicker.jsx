@@ -28,6 +28,7 @@ const NumberPicker = ({
 
             return (
               <button
+                key={i}
                 className={'btn btn-default' + (active ? ' btn-primary' : '')}
                 onClick={() => onSelect(val)}>
                 {

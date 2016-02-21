@@ -61,10 +61,10 @@ Sammy('#content', function() {
     );
   });
 
-  this.get('#/Test2', (context) => {
+  this.get('#/Test3', (context) => {
     ReactDOM.render(
       <Shared context={context}>
-        <Test2 />
+        <Test3 />
       </Shared>,
       element
     );
@@ -73,9 +73,9 @@ Sammy('#content', function() {
   this.get('#/Editor', (context) => {
     ReactDOM.render(
       <Provider store={Store}>
-      <Shared context={context}>
-        <Editor />
-      </Shared>
+        <Shared context={context}>
+          <Editor />
+        </Shared>
       </Provider>,
       element
     );

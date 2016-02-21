@@ -90,7 +90,7 @@ const ExerciseEditor = ({
           <ul className='list-group'>
             {
               exercise.phases.map((phase, id) => (
-                <li className='list-group-item'>
+                <li key={id} className='list-group-item'>
                   <NumberPickerBar
                     secondaryIcon={
                       <span className='glyphicon glyphicon-volume-off'></span>
