@@ -62,15 +62,22 @@ export class ExerciseView {
     constructor(exercise) {
         this.name = exercise.name;
         this.count = 0;
-        this.countDown = exercise.count;        
+        this.countDown = exercise.count;
+        this.totalSec = 0;
+        this.repeatSec = 0;                
+        this.repeatDurationSec = 0;
         this.phaseViews = [];
         exercise.phases.forEach(function (phase) {            
             this.phaseViews[phase.id] = new PhaseView(phase.id, phase.durationSec);
+            this.repeatDurationSec += phase.durationSec;
         }, this);
         
+        this.repeatCountDownSec = this.repeatDurationSec;
+                
         if (exercise.delaySec>0)
         {
-            this.current = new PhaseView(-1, exercise.delaySec);
+            this.deleayPhaseView = new PhaseView(-1, exercise.delaySec);
+            this.current = this.deleayPhaseView;
         } else {
             this.current = this.phaseViews[0];    
         }
@@ -81,6 +88,7 @@ export class ExerciseView {
         
        if (!this.current.hasFinished) {
             this.current.nextTick();
+            this.incrementTime();
         }
         
         if (!this.current.hasFinished) return;
@@ -113,8 +121,22 @@ export class ExerciseView {
                 phase.repeat();
             }, this);
             this.current = this.phaseViews[0];
+            this.repeatSec = 0;
+            this.repeatCountDownSec = this.repeatDurationSec;
             return;
         }        
         this.current = null;
+    }
+    
+    incrementTime()
+    {
+        if (this.isDelayPhase) return;
+        this.totalSec++;
+        this.repeatSec++;      
+        this.repeatCountDownSec--;          
+    }
+    
+    get isDelayPhase(){
+        return this.current && (this.current === this.deleayPhaseView);
     }
 }
