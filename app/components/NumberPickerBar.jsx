@@ -5,7 +5,7 @@ const NumberPickerBar = (props) => {
   var { primaryIcon, secondaryIcon, onPrimaryIconClick, onSecondaryIconClick } = props;
 
   return (
-    <ul className={'number-picker-bar ' + (props.vertical ? 'vertical list-unstyled' : 'list-inline')}>
+    <ul className={'number-picker-bar clearfix ' + (props.vertical ? 'vertical list-unstyled' : 'list-inline')}>
       {
         primaryIcon ? (
           <li>
