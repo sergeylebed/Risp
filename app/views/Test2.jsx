@@ -1,10 +1,13 @@
 import React from 'react';
-import NumberPicker from '../components/NumberPicker.jsx';
+import NumberPickerBar from '../components/NumberPickerBar.jsx';
 
 const Test2 = () => {
   return (
     <div>
-      <NumberPicker
+      <NumberPickerBar
+        primaryIcon={<span>Hello</span>}
+        secondaryIcon={<span>Goodby</span>}
+
         id='some'
         title='Hello'
 
@@ -12,9 +15,9 @@ const Test2 = () => {
         options={[1, 2, 3]}
         dialogOptions={[4, 5, 6]}
 
-        columns={8}
+        columns={4}
 
-        vertical={false}
+        vertical={true}
         first={true}/>
     </div>
   );
