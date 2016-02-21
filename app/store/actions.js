@@ -7,6 +7,9 @@ export const ActionType = {
         setCount: 'Exercise.setCount',
         setPhase: 'Exercise.setPhase',
         setPhases: 'Exercise.setPhases',
+        setDelaySound : 'Exercise.setDelaySound',
+        setCountSound : 'Exercise.setCountSound',
+        setPhaseSound : 'Exercise.setPhaseSound'
     }
 }
 
@@ -39,5 +42,27 @@ export class ExerciseActions
             id: id,
             durationSec: durationSec
         }
-    }       
+    }
+    
+    static setDelaySound(soundOn) {
+        return {
+            type: ActionType.Exercise.setDelaySound,
+            delaySoundOn: soundOn
+        }
+    }
+
+    static setCountSound(soundOn) {
+        return {
+            type: ActionType.Exercise.setCountSound,
+            countSoundOn: soundOn
+        }
+    }    
+    
+    static setPhaseSound(id, soundOn) {
+        return {
+            type: ActionType.Exercise.setPhaseSound,
+            id: id,
+            soundOn: soundOn
+        }
+    }           
 }

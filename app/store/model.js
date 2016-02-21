@@ -2,7 +2,7 @@ import { Exercise, Phase} from '../js/Exercise';
 
 export class Risp {
     
-    constructor(exercise)
+    constructor(exercise, settings)
     {        
         this.currentExercise = exercise
             || new Exercise(
@@ -12,6 +12,15 @@ export class Risp {
                     new Phase(1, 4)
                 ], 
                 3,
-                10);                                   
+                10);
+        this.settings =  settings || new Settings(true);                                  
     }       
+}
+
+
+export class Settings {
+    constructor(soundOn = true)
+    {
+        this.soundOn = soundOn;
+    }
 }

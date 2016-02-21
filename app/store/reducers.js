@@ -18,44 +18,75 @@ var copyExercise = function(state)
     );
 }
 
+var copyRisp = function(state)
+{
+    let ex = copyExercise(state);
+    return new Risp(ex, state.settings);    
+}
+
 export function rispReducer(state = initialState, action) {
 
-  console.log('in '+action.type+' action');
   switch (action.type) {
     
     case Actions.ActionType.Exercise.setCount:        
       {
-          let ex = _.extend({}, state.currentExercise, {count: action.count});  
-          return new Risp(ex);
+          let risp = copyRisp(state);
+          risp.currentExercise.count = action.count;
+          return risp;
       }
     
     case Actions.ActionType.Exercise.setDelay:
       {
-          let ex = _.extend({}, state.currentExercise, {delaySec: action.delaySec});  
-          return new Risp(ex);
+          let risp = copyRisp(state);
+          risp.currentExercise.delaySec = action.delaySec;
+          return risp;
       }      
 
     case Actions.ActionType.Exercise.setPhases:
       {
-          let ex = copyExercise(state);
-          console.log(ex, action); 
-          ex.setPhases(action.number)  
-          return new Risp(ex);
+          let risp = copyRisp(state);
+          risp.currentExercise.setPhases(action.number);  
+          return risp;
       }      
 
     case Actions.ActionType.Exercise.setPhase:
       {                    
           if (state.currentExercise.phases.length>action.id) {
-              let ex = _.extend({}, state.currentExercise);
+              let risp = copyRisp(state);          
               let ph = new Phase(action.id, action.durationSec);
-              ex.phases[action.id] = ph;
-              return new Risp(ex); 
+              risp.currentExercise.phases[action.id] = ph;
+              return risp; 
+          } 
+        return state;    
+      }      
+
+    case Actions.ActionType.Exercise.setCountSound:
+      {
+          let risp = copyRisp(state);
+          risp.currentExercise.countSoundOn = action.countSoundOn;  
+          return risp;
+      }      
+
+    case Actions.ActionType.Exercise.setDelaySound:
+      {
+          let risp = copyRisp(state);
+          risp.currentExercise.delaySoundOn = action.delaySoundOn;  
+          return risp;
+      }      
+
+    case Actions.ActionType.Exercise.setPhaseSound:
+      {                    
+          if (state.currentExercise.phases.length>action.id) {
+              let risp = copyRisp(state);          
+              let ph = risp.currentExercise.phases[action.id];
+              ph = new Phase(ph.id, ph.durationSec, action.soundOn);
+              risp.currentExercise.phases[action.id] = ph;
+              return risp; 
           } 
         return state;    
       }      
           
     default:
       return state
-  };
-    
-}; 
+  };    
+};
