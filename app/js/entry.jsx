@@ -13,6 +13,7 @@ import Test2 from '../views/Test2.jsx';
 import Test3 from '../views/Test3.jsx';
 //import Editor from '../views/Editor.jsx';
 import ExerciseEditor from '../components/ExerciseEditor.jsx';
+import SoundTest from '../views/SoundTest.jsx';
 
 import ExerciseStore from '../stores/ExerciseStore.js';
 
@@ -40,9 +41,10 @@ Sammy('#content', function() {
         new Phase(2, 3),
         new Phase(3, 5)
     ];
-    var exercise = new Exercise('test name', phases, 5, 2);     
-    ReactDOM.render(    
-    <Provider store={Store}>            
+
+    var exercise = new Exercise('test name', phases, 5, 2);
+    ReactDOM.render(
+    <Provider store={Store}>
       <Shared context={context}>
         <Runner exercise={exercise} />
       </Shared>
@@ -76,6 +78,15 @@ Sammy('#content', function() {
         <ExerciseEditor />
       </Shared>
       </Provider>,
+      element
+    );
+  });
+
+  this.get('#/SoundTest', (context) => {
+    ReactDOM.render(
+      <Shared context={context}>
+        <SoundTest />
+      </Shared>,
       element
     );
   });

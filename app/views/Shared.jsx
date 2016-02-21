@@ -18,11 +18,9 @@ const Shared = ({ context, children }) => {
         </nav>
       </div>
       <div className='row'>
-        <div className='container'>
-          {
-            clonedChildren
-          }
-        </div>
+        {
+          clonedChildren
+        }
       </div>
       <div className='row'>
         <div className='navbar navbar-default navbottom'>

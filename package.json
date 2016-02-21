@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.6",
+    "fs": "0.0.2",
     "jquery": "^2.2.0",
     "material-ui": "^0.14.4",
     "react": "^0.14.7",
@@ -36,6 +37,7 @@
     "react-tap-event-plugin": "^0.2.2",
     "redux": "^3.3.1",
     "sammy": "^0.7.6",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "wad": "^0.1.0"
   }
 }
