@@ -4,8 +4,9 @@ import ProgressBar from '../components/ProgressBar.jsx';
 import { ExerciseView } from '../js/Exercise';
 import TimeBox from '../components/TimeBox.jsx';
 import CountBox from '../components/CountBox.jsx';
+import { connect } from 'react-redux'
 
-export default class  FileRun extends React.Component {
+class FileRun extends React.Component {
     
   constructor(props) {
     super(props);
@@ -158,5 +159,18 @@ export default class  FileRun extends React.Component {
   }
 }
 
-// <div>Seconds Elapsed: {this.state.secondsElapsed}</div>
-//             
+const mapStateToProps = (state) => {
+  return {
+    exercise: state.currentExercise
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {}  
+}
+
+const Runner = connect(
+     mapStateToProps,
+     mapDispatchToProps)
+    (FileRun); 
+export default Runner;
