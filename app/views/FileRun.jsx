@@ -27,7 +27,8 @@ export default class  FileRun extends React.Component {
             };
     this.state = {
         secondsElapsed: 0,
-        exercise: new ExerciseView(props.exercise)
+        exercise: new ExerciseView(props.exercise),
+        isSoundOn: true
         };   
     this.animator.play();
   }
@@ -40,6 +41,20 @@ export default class  FileRun extends React.Component {
       this.setState({
                         secondsElapsed: this.state.secondsElapsed,
                         exercise: this.state.exercise
+                        
+                    });
+  }
+  
+  soundOn(){
+      this.setState({
+                        isSoundOn:true
+                        
+                    });
+  }
+  
+  soundOff(){
+      this.setState({
+                        isSoundOn: false
                         
                     });
   }
@@ -101,7 +116,7 @@ export default class  FileRun extends React.Component {
             )
         }
         <div className="row player-buttons">  
-          <div className='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+          <div className='col-md-12'>
             <button
               className='btn btn-default btn-lg btn-success'
               onClick={(e) => {
@@ -109,8 +124,7 @@ export default class  FileRun extends React.Component {
                 this.animator.play();
                 this.refreshState();
               }}                   
-              disabled={!this.animator.canPlay}>Go</button>
-            &nbsp;
+              disabled={!this.animator.canPlay}><span className="glyphicon glyphicon-play" aria-hidden="true"></span> Go</button>
             <button
               className='btn btn-default btn-lg btn-success'
               onClick={(e) => {
@@ -118,17 +132,7 @@ export default class  FileRun extends React.Component {
                   this.animator.pause();
                   this.refreshState();
               }} 
-              disabled={!this.animator.canPause}>Pause</button>
-            &nbsp;
-            <button
-              className='btn btn-default btn-lg btn-success'
-              onClick={(e) => {
-                e.preventDefault(); 
-                this.animator.resume();
-                this.refreshState();
-              }}
-            disabled={!this.animator.canResume}>Resume</button>                   
-          &nbsp;
+              disabled={!this.animator.canPause}><span className="glyphicon glyphicon-pause" aria-hidden="true"></span> Pause</button>
             <button
               className='btn btn-default btn-lg btn-success'
               onClick={(e) => {
@@ -136,18 +140,30 @@ export default class  FileRun extends React.Component {
                 this.animator.stop();
                 this.setInitialState();
               }}
-              disabled={!this.animator.canStop}>Abort</button>                   
+              disabled={!this.animator.canStop}><span className="glyphicon glyphicon-stop" aria-hidden="true"></span> Abort</button>                   
+            <button
+              className={'btn btn-default btn-lg btn-success' + (this.state.isSoundOn ? ' hidden' : '')}
+              onClick={(e) => {
+                e.preventDefault(); 
+                this.soundOn();
+              }}
+            ><span className="glyphicon glyphicon-volume-off" aria-hidden="true"></span></button>                   
+            <button
+              className={'btn btn-default btn-lg btn-success' + (this.state.isSoundOn ? '' : ' hidden')}
+              onClick={(e) => {
+                e.preventDefault(); 
+                this.soundOff();
+              }}
+            ><span className="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>                   
+            <button
+              className='btn btn-default btn-lg btn-success btnchange'
+              onClick={(e) => {
+                e.preventDefault(); 
+                this.animator.stop();
+                this.setInitialState();
+              }}
+              disabled={false}><span className="glyphicon glyphicon-pencil" aria-hidden="true"></span> Change</button>
           </div>                   
-          <div className='col-xs-12 col-sm-1 col-md-2 col-lg-2 col-btnchange'>
-            <button
-              className='btn btn-default btn-lg btn-success'
-              onClick={(e) => {
-                e.preventDefault(); 
-                this.animator.stop();
-                this.setInitialState();
-              }}
-              disabled={false}>Change</button>
-          </div>     
         </div>     
       </div>
     );

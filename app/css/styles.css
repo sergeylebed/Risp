@@ -52,8 +52,13 @@
 	background-color: #ffd;
 	border-color: #f00;
 }
-.col-btnchange {text-align: right;}
 .row.phase-run {
     margin: 0px 0px;
 }
 .player-buttons {margin-top:20px;}
+.player-buttons button {font-size: 20px;
+	margin-right:13px;
+	margin-bottom: 10px
+}
+.player-buttons button.btnchange {float: right;margin-right:0}
+
