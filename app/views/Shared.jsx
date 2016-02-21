@@ -8,7 +8,7 @@ const Shared = ({ context, children }) => {
       <div className='row'>
         <nav className='navbar navbar-default'>
           <div className='container'>
-            <div class="navbar-header">
+            <div className="navbar-header">
               <a className="navbar-brand" href='#'
                 onClick={(e) => { e.preventDefault(); context.redirect('#/Welcome'); }}>
                 <span className="glyphicon glyphicon-home" aria-hidden="true"></span> RISP
@@ -29,7 +29,7 @@ const Shared = ({ context, children }) => {
           <div className='container'>
             <ul className="nav navbar-nav">
               <li><a href='#'
-                onClick={(e) => { e.preventDefault(); context.redirect('#/Welcome'); }}>About</a></li>
+                onClick={(e) => { e.preventDefault(); context.redirect('#/View'); }}>About</a></li>
               <li><a href='#'
                 onClick={(e) => { e.preventDefault(); context.redirect('#/Welcome'); }}>Tell us</a></li>
             </ul>

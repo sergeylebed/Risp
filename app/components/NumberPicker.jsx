@@ -16,7 +16,7 @@ const NumberPicker = ({ value, begin, step, number, onSelect, vertical, classNam
     btns.push(
       <button
         className={'btn btn-default' + (active ? ' btn-primary' : '')}
-        onClick={((val, id) => () => onSelect(val, id))(val, i)}>
+        onClick={((val) => () => onSelect(val))(val)}>
           {
             val
           }
