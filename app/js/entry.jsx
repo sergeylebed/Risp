@@ -11,7 +11,7 @@ import About from '../views/About.jsx';
 import ExerciseEditor from '../components/ExerciseEditor.jsx';
 import SoundTest from '../views/SoundTest.jsx';
 
-import Store from '../store/RispStore.js';
+import Store from '../store/rispStore.js';
 import { Exercise, Phase } from '../js/Exercise';
 
 import Test from '../views/Test.jsx';
