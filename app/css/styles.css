@@ -33,6 +33,15 @@
 .countbox, .timebox {
 	text-align: center;
 	margin-bottom: 10px;
+	position: relative;
+}
+.countbox label, .timebox label {
+	position: absolute;
+    bottom: 0;
+    font-size: 1.4em;
+    left: 0;
+    right: 0;
+    width: 100%;
 }
 .countbox div, .timebox div {
 	font-size: 3em !important;

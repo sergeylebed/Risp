@@ -85,7 +85,6 @@ class FileRun extends React.Component {
   }
         
   render() {
-    console.log('In render');
     const states = ['dafault', 'delay', 'pause'];
     return (        
       <div className="container">
@@ -97,13 +96,16 @@ class FileRun extends React.Component {
                   ?'pause'
                   :'default'
             } />
+            <label>Total</label>
           </div>
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 countbox">
             <CountBox count={this.state.exercise.countDown} />
+            <label>Repeat</label>
           </div>
           <div className="col-xs-6 col-sm-4 col-md-4 col-lg-4 timebox timebox-rest">
             <TimeBox sec={this.repeatTimeBoxSec} 
               state={this.repeatTimeBoxState} />
+            <label>Rest</label>
           </div>
         </div>
         {            
@@ -118,6 +120,20 @@ class FileRun extends React.Component {
         }
         <div className="row player-buttons">  
           <div className='col-md-12'>
+            <button
+              className={'btn btn-default btn-lg btn-success' + (this.state.isSoundOn ? ' hidden' : '')}
+              onClick={(e) => {
+                e.preventDefault(); 
+                this.soundOn();
+              }}
+            ><span className="glyphicon glyphicon-volume-off" aria-hidden="true"></span></button>                   
+            <button
+              className={'btn btn-default btn-lg btn-success' + (this.state.isSoundOn ? '' : ' hidden')}
+              onClick={(e) => {
+                e.preventDefault(); 
+                this.soundOff();
+              }}
+            ><span className="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>                   
             <button
               className='btn btn-default btn-lg btn-success'
               onClick={(e) => {
@@ -142,20 +158,6 @@ class FileRun extends React.Component {
                 this.setInitialState();
               }}
               disabled={!this.animator.canStop}><span className="glyphicon glyphicon-stop" aria-hidden="true"></span> Abort</button>                   
-            <button
-              className={'btn btn-default btn-lg btn-success' + (this.state.isSoundOn ? ' hidden' : '')}
-              onClick={(e) => {
-                e.preventDefault(); 
-                this.soundOn();
-              }}
-            ><span className="glyphicon glyphicon-volume-off" aria-hidden="true"></span></button>                   
-            <button
-              className={'btn btn-default btn-lg btn-success' + (this.state.isSoundOn ? '' : ' hidden')}
-              onClick={(e) => {
-                e.preventDefault(); 
-                this.soundOff();
-              }}
-            ><span className="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>                   
             <button
               className='btn btn-default btn-lg btn-success btnchange'
               onClick={(e) => {
