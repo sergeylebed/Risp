@@ -14,23 +14,16 @@ export default function Welcome({ context }) {
         <button className="btn btn-primary btn-lg" onClick={() => { context.redirect('#/Editor'); }}>Start exercises now</button>
       </div>
 
-      <div className='container'>
-        <div className='row page-header'>
-          <h1>Easy as</h1>
-        </div>
-
-        <div className='row'>
-          <h2>Choose phases</h2>
-        </div>
-
-        <div className='row'>
-          <h2>Set timing</h2>
-        </div>
-
-        <div className='row'>
-          <h2>Start exercise</h2>
-        </div>
+      <div className='page-header'>
+        <h1>Easy as</h1>
       </div>
+
+      <h2>Choose phases</h2>
+
+      <h2>Set timing</h2>
+
+      <h2>Start exercise</h2>
+
     </div>
   );
 }
