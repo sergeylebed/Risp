@@ -1,0 +1,17 @@
+.number-picker-dialog table {
+  width: 100%;
+}
+
+.number-picker-dialog table button {
+  width: 100%;
+  border-radius: 0;
+}
+
+.number-picker-dialog .menu {
+  margin-top: 15px;
+}
+
+.number-picker-dialog input.active {
+  background-color: #337ab7;
+  color: #fff;
+}

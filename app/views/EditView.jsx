@@ -3,7 +3,7 @@ import React from 'react';
 import NumberPicker from '../components/NumberPicker.jsx';
 import { Exercise } from '../stores/ExerciseStore.js';
 
-const EditView = ({ name, file, onClose, onSave, onBeginRename, onRename, onEndRename, onStart }) => {
+const EditView = ({ name, file, maxPhases, onClose, onSave, onBeginRename, onRename, onEndRename, onStart }) => {
   var Menu;
 
   if(name.rename() !== null){
@@ -58,11 +58,18 @@ const EditView = ({ name, file, onClose, onSave, onBeginRename, onRename, onEndR
         <div className='col-md-2 col-sm-1 col-xs-1'></div>
         <div className='col-md-8 col-sm-10 col-xs-10'>
           <NumberPicker
+            id='phase-selector'
+            title='Select phases'
+
+            value={file.phases() && file.phases().length}
             begin={1}
             step={1}
             number={5}
-            value={file.phases() && file.phases().length}
-            onSelect={(value) => onSave(file.phases(value))}/>
+
+            rows={5}
+            columns={5}
+
+            onSelect={(value) => onSave(file.phases(Math.min(maxPhases, value)))}/>
         </div>
         <div className='col-md-2 col-sm-1 col-xs-1'></div>
       </div>
@@ -70,11 +77,20 @@ const EditView = ({ name, file, onClose, onSave, onBeginRename, onRename, onEndR
         <div className='col-md-2 col-sm-1 col-xs-1'>
           <NumberPicker
             className='pull-right'
-            vertical
+
+            id='restTime-selector'
+            title='Select restTime'
+
+            value={file.restTime()}
             begin={0}
             step={5}
             number={5}
-            value={file.restTime()}
+
+            rows={5}
+            columns={5}
+
+            vertical
+
             onSelect={(value) => onSave(file.restTime(value))}/>
         </div>
         <div className='col-md-8 col-sm-10 col-xs-10'>
@@ -83,10 +99,19 @@ const EditView = ({ name, file, onClose, onSave, onBeginRename, onRename, onEndR
               (file.phases() || []).map((phase, id) => (
                 <li className='list-group-item'>
                   <NumberPicker
-                    begin={1}
-                    step={1}
-                    number={5}
+                    id={'phase-selector-' + id}
+                    title='Select phase'
+
                     value={phase}
+                    begin={0}
+                    step={5}
+                    number={5}
+
+                    rows={5}
+                    columns={5}
+
+                    first
+
                     onSelect={(value) => onSave(file.phase(id, value))}/>
                 </li>
               ))
@@ -96,12 +121,18 @@ const EditView = ({ name, file, onClose, onSave, onBeginRename, onRename, onEndR
         <div className='col-md-2 col-sm-1 col-xs-1'>
           <NumberPicker
             className='pull-left'
-            vertical
-            first
+
+            id='repeat-selector'
+            title='Select repeat'
+
+            value={file.repeat()}
             begin={0}
             step={5}
             number={5}
-            value={file.repeat()}
+
+            vertical
+            first
+
             onSelect={(value) => onSave(file.repeat(value))}/>
         </div>
       </div>
