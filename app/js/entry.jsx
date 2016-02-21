@@ -10,6 +10,7 @@ import FileRun from '../views/FileRun.jsx';
 import Test from '../views/Test.jsx';
 import Test2 from '../views/Test2.jsx';
 import Test3 from '../views/Test3.jsx';
+import SoundTest from '../views/SoundTest.jsx';
 
 import ExerciseStore from '../stores/ExerciseStore.js';
 
@@ -35,8 +36,8 @@ Sammy('#content', function() {
         new Phase(2, 3),
         new Phase(3, 5)
     ];
-    var exercise = new Exercise('test name', phases, 5, 2);     
-    ReactDOM.render(        
+    var exercise = new Exercise('test name', phases, 5, 2);
+    ReactDOM.render(
       <Shared context={context}>
         <FileRun store={ExerciseStore} exercise={exercise} />
       </Shared>,
@@ -66,6 +67,15 @@ Sammy('#content', function() {
     ReactDOM.render(
       <Shared context={context}>
         <Test3 />
+      </Shared>,
+      element
+    );
+  });
+
+  this.get('#/SoundTest', (context) => {
+    ReactDOM.render(
+      <Shared context={context}>
+        <SoundTest />
       </Shared>,
       element
     );

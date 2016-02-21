@@ -106,7 +106,7 @@ const ExerciseEditor = ({
                     columns={5}
                     right
 
-                    onSelect={(value) => onPhaseChange(id, value)}/>
+                    onSelect={(value) => onPhaseChange(phase.id, value)}/>
                 </li>
               ))
             }
