@@ -66,8 +66,8 @@ const NumberPickerDialog = ({
                 <input
                   className={'form-control' + (!activeAny ? ' active' : '')}
                   type='text'
-                  value={value === null ? (options[0] || 0) : value}
-                  onChange={(e) => onSelect(isNaN(e.target.value) ? value : Number.parseInt(e.target.value))}>
+                  value={value === null ? options[0] : value}
+                  onChange={(e) => onSelect(Number.isNaN(e.target.value) ? value : Number.parseInt(e.target.value || 0))}>
                 </input>
                 <div className='input-group-btn'>
                   <button className='btn btn-default'
