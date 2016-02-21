@@ -10,7 +10,6 @@ const NumberPicker = ({
   dialogOptions,
 
   columns,
-
   vertical,
 
   onSelect
@@ -44,7 +43,9 @@ const NumberPicker = ({
               <button
                 className='btn btn-default btn-primary'
                 data-toggle='modal'
-                data-target={'#' + id}>{value}
+                data-target={'#' + id}>
+                {value}
+                <span style={{marginLeft: 10}} className='glyphicon glyphicon-cog' aria-hidden></span>
               </button>
             )
             :
@@ -57,19 +58,19 @@ const NumberPicker = ({
               </button>
             ))
           }
+        </div>
+        <div className="modal fade" id={id} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <NumberPickerDialog
+            title={title}
+
+            columns={columns}
+            options={dialogOptions}
+
+            value={value}
+
+            onSelect={onSelect}/>
+        </div>
       </div>
-      <div className="modal fade" id={id} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <NumberPickerDialog
-          title={title}
-
-          columns={columns}
-          options={dialogOptions}
-
-          value={value}
-
-          onSelect={onSelect}/>
-      </div>
-    </div>
-  );
+    );
 };
 export default NumberPicker;

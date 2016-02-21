@@ -7,8 +7,6 @@ const Test3 = () => {
 
   return <ExerciseEditor
     exercise={e}
-    onChange={(e) => console.log(e)}
-    onStart={() => console.log('start!')}
     />
 };
 

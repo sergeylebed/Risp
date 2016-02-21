@@ -1,0 +1,23 @@
+.number-picker-bar > li {
+  margin: 0 5px 0 0;
+}
+
+.number-picker-bar > li:last-child {
+  margin: 0;
+}
+
+.number-picker-bar.vertical > li > button {
+  width: 100%;
+}
+
+.number-picker-bar.vertical .btn-group-vertical {
+  width: 100%;
+}
+
+.number-picker-bar.vertical > li {
+  margin: 0 0 10px 0;
+}
+
+.number-picker-bar.vertical > li:last-child {
+  margin: 0;
+}

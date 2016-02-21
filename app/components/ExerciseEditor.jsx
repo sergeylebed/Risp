@@ -1,70 +1,89 @@
 import React from 'react';
 
-import NumberPicker from '../components/NumberPicker.jsx';
-import { Exercise, Phase } from '../js/Exercise.js';
+import NumberPickerBar from '../components/NumberPickerBar.jsx';
 
 const ExerciseEditor = ({
   exercise,
-  maxPhases = 30,
 
-  onStart,
-  onChange,
+  onDelayChange,// (value)
+  onCountChange,// (value)
+  onPhasesChange,// (value)
+  onPhaseChange,// (id, value)
+
+  onStart
 }) => {
 
-  function copy() {
-    return new Exercise(
-      exercise.name,
-      exercise.phases,
-      exercise.delaySec,
-      exercise.count
-    );
-  }
+  const phasesOptions = [
+    [1, 2, 3, 4, 5],
+    new Array(40).fill(1).map((_, i) => i + 1)
+  ];
+
+  const delayOptions = [
+    [1, 10, 20, 30],
+    new Array(40).fill(1).map((_, i) => (i * 5 || 1))
+  ];
+
+  const phaseOptions = [
+    [1, 10, 20, 30],
+    new Array(40).fill(1).map((_, i) => (i * 5 || 1))
+  ];
+
+  const countOptions = [
+    [0, 10, 20, 30],
+    new Array(40).fill(1).map((_, i) => (i * 10 || 1))
+  ];
 
   return (
     <div className='edit'>
       <div className='row edit-header'>
         <div className='col-md-2 col-sm-1 col-xs-1'></div>
         <div className='col-md-8 col-sm-10 col-xs-10'>
-          <NumberPicker
-            id='phase-selector'
-            title='Select phases'
+          <NumberPickerBar
+            primaryIcon={
+              <span>Phases</span>
+            }
+            secondaryIcon={
+              <span className='glyphicon glyphicon-volume-off'></span>
+            }
+
+            id='phases-selector'
+            title='Phases'
 
             value={exercise.phases && exercise.phases.length}
-            options={[1, 2, 3, 4, 5]}
-            dialogOptions={new Array(40).fill(1).map((_, i) => i + 1)}
+            options={phasesOptions[0]}
+            dialogOptions={phasesOptions[1]}
 
             columns={5}
 
-            onSelect={(value) => {
-              var cp = copy();
-              cp.setPhases(Math.min(maxPhases, value));
-              onChange(cp);
-            }} />
+            onSelect={(value) => onPhasesChange(value)} />
         </div>
         <div className='col-md-2 col-sm-1 col-xs-1'></div>
       </div>
       <div className='row edit-body'>
         <div className='col-md-2 col-sm-1 col-xs-1'>
           <div className='pull-right'>
-            <NumberPicker
+            <NumberPickerBar
+              primaryIcon={
+                <span>Delay</span>
+              }
+              secondaryIcon={
+                <span className='glyphicon glyphicon-volume-off'></span>
+              }
+
               className='pull-right'
 
-              id='restTime-selector'
-              title='Select restTime'
+              id='delay-selector'
+              title='Delay'
 
               value={exercise.delaySec}
-              options={[1, 10, 20, 30]}
-              dialogOptions={new Array(40).fill(1).map((_, i) => (i * 5 || 1))}
+              options={delayOptions[0]}
+              dialogOptions={delayOptions[1]}
 
               columns={5}
 
               vertical
 
-              onSelect={(value) => {
-                var cp = copy();
-                cp.delaySec = value;
-                onChange(cp);
-              }}/>
+              onSelect={(value) => onDelayChange(value)}/>
           </div>
         </div>
         <div className='col-md-8 col-sm-10 col-xs-10'>
@@ -72,21 +91,22 @@ const ExerciseEditor = ({
             {
               exercise.phases.map((phase, id) => (
                 <li className='list-group-item'>
-                  <NumberPicker
+                  <NumberPickerBar
+                    secondaryIcon={
+                      <span className='glyphicon glyphicon-volume-off'></span>
+                    }
+
                     id={'phase-selector-' + id}
-                    title='Select phase'
+                    title='Phase duration'
 
                     value={phase.durationSec}
-                    options={[1, 10, 20, 30]}
-                    dialogOptions={new Array(40).fill(1).map((_, i) => (i * 5 || 1))}
+                    options={phaseOptions[0]}
+                    dialogOptions={phaseOptions[1]}
 
                     columns={5}
+                    right
 
-                    onSelect={(value) => {
-                      var cp = copy();
-                      cp.phases = cp.phases.map((v, i) => i === id ? value : new Phase(i, value));
-                      onChange(cp);
-                    }}/>
+                    onSelect={(value) => onPhaseChange(id, value)}/>
                 </li>
               ))
             }
@@ -94,23 +114,26 @@ const ExerciseEditor = ({
         </div>
         <div className='col-md-2 col-sm-1 col-xs-1'>
           <div className='pull-left'>
-            <NumberPicker
-              id='repeat-selector'
-              title='Select repeat'
+            <NumberPickerBar
+              primaryIcon={
+                <span>Count</span>
+              }
+              secondaryIcon={
+                <span className='glyphicon glyphicon-volume-off'></span>
+              }
+
+              id='count-selector'
+              title='Count'
 
               value={exercise.count}
-              options={[0, 10, 20, 30]}
-              dialogOptions={new Array(40).fill(1).map((_, i) => (i * 10 || 1))}
+              options={countOptions[0]}
+              dialogOptions={countOptions[1]}
 
               columns={5}
 
               vertical
 
-              onSelect={(value) => {
-                var cp = copy();
-                cp.count = value;
-                onChange(cp);
-              }}/>
+              onSelect={(value) => onCountChange(value)}/>
           </div>
         </div>
       </div>

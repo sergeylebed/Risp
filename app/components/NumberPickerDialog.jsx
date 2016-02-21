@@ -11,7 +11,7 @@ const NumberPickerDialog = ({
   onSelect
 }) => {
   var activeAny = false;
-  var rows = Math.floor(options.length / columns) + (columns % 1 === 0 ? 0 : 1);
+  var rows = Math.floor(options.length / columns) + ((options.length / columns) % 1 > 0 ? 1 : 0);
 
   return (
     <div className="modal-dialog number-picker-dialog" role="document">
