@@ -43,7 +43,9 @@ const NumberPicker = ({
               <button
                 className='btn btn-default btn-primary'
                 data-toggle='modal'
-                data-target={'#' + id}>{value}
+                data-target={'#' + id}>
+                {value}
+                <span style={{marginLeft: 10}} className='glyphicon glyphicon-cog' aria-hidden></span>
               </button>
             )
             :

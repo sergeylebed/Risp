@@ -24,7 +24,7 @@ const NumberPickerBar = (props) => {
       </li>
       {
         secondaryIcon ? (
-          <li>
+          <li className={props.right ? 'pull-right' : ''}>
             <button className='btn btn-default btn-lg'>
               {
                 secondaryIcon

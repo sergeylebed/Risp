@@ -5,7 +5,7 @@ import NumberPickerBar from '../components/NumberPickerBar.jsx';
 const ExerciseEditor = ({
   exercise,
 
-  onDelayChange, // (value)
+  onDelayChange,// (value)
   onCountChange,// (value)
   onPhasesChange,// (value)
   onPhaseChange,// (id, value)
@@ -104,6 +104,7 @@ const ExerciseEditor = ({
                     dialogOptions={phaseOptions[1]}
 
                     columns={5}
+                    right
 
                     onSelect={(value) => onPhaseChange(id, value)}/>
                 </li>
