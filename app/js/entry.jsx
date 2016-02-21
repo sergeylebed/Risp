@@ -6,8 +6,12 @@ import ReactDOM from 'react-dom';
 import Shared from '../views/Shared.jsx'
 import FileView from '../views/FileView.jsx';
 import Welcome from '../views/Welcome.jsx';
+import FileRun from '../views/FileRun.jsx';
+import Test from '../views/Test.jsx';
 
 import ExerciseStore from '../stores/ExerciseStore.js';
+
+import { Exercise, Phase } from '../js/Exercise';
 
 Sammy('#content', function() {
   var element = this.$element()[0];
@@ -29,6 +33,33 @@ Sammy('#content', function() {
       element
     );
   });
+
+  this.get('#/Run', (context) => {
+      
+    var phases = [
+        new Phase(0, 4),
+        new Phase(1, 2),
+        new Phase(2, 4),
+        new Phase(3, 10)
+    ];
+    var exercise = new Exercise('test name', phases, 0, 10);     
+    ReactDOM.render(        
+      <Shared context={context}>
+        <FileRun store={ExerciseStore} exercise={exercise} />
+      </Shared>,
+      element
+    );
+  });
+
+  this.get('#/Test', (context) => {          
+    ReactDOM.render(
+      <Shared context={context}>
+        <Test store={ExerciseStore} />
+      </Shared>,
+      element
+    );
+  });
+
 
   this.get('', (context) => {
     context.redirect('#/Welcome');

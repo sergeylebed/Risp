@@ -3,4 +3,27 @@
 .progressbar .btn-group { padding: 0 5px; }
 .progressbar button { width: 100%; color: transparent; }
 .phase-active { outline: #f00 solid 2px; }
-.phase-number { padding: 8px; text-align: center }
+.pbar-number { 
+	height: 36px;
+	padding: 6px;
+	margin: 9px 0;
+	border: 1px solid #ccc;
+	border-radius: 18px;
+	-moz-border-radius: 18px;
+	-webkit-border-radius: 18px;
+	text-align: center;
+	font-size: larger;
+	display: inline-block;
+    min-width: 36px;
+}
+.pbar-counter {
+	height: 36px;
+	padding: 6px;
+	margin: 9px 0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	text-align: center;
+	font-size: larger;
+}
