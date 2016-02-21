@@ -27,7 +27,7 @@ export class Phase {
 
     constructor(id, durationSec) {
         this.id = id;
-        this.duration = durationSec;
+        this.durationSec = durationSec;
     }
 }
 
@@ -41,10 +41,14 @@ export class PhaseView extends Phase {
     get hasFinished() {
         return this.countDown == 0;
     }
+    
+    get counter() {
+        return this.durationSec-this.countDown;
+    }
 
     nextTick() {
         if (this.hasFinished) return;
-        this.countDown = - 1;
+        this.countDown -= 1;
     }
 }
 
@@ -54,7 +58,8 @@ export class ExerciseView {
         this.name = exercise.name;
         this.count = exercise.count;
         this.current = new PhaseView(-1, exercise.delaySec);
-        exercise.phases.forEach(function (phase) {
+        this.phaseViews = [];
+        exercise.phases.forEach(function (phase) {            
             this.phaseViews[phase.id] = new PhaseView(phase.id, phase.durationSec);
         }, this);
     }

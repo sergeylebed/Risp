@@ -14,6 +14,8 @@ import Test from '../views/Test.jsx';
 
 import ExerciseStore from '../stores/ExerciseStore.js';
 
+import { Exercise, Phase } from '../js/Exercise';
+
 Sammy('#content', function() {
   var element = this.$element()[0];
 
@@ -36,15 +38,23 @@ Sammy('#content', function() {
   });
 
   this.get('#/Run', (context) => {
-    ReactDOM.render(
+      
+    var phases = [
+        new Phase(0, 4),
+        new Phase(1, 2),
+        new Phase(2, 4),
+        new Phase(3, 10)
+    ];
+    var exercise = new Exercise('test name', phases, 0, 10);     
+    ReactDOM.render(        
       <Shared context={context}>
-        <FileRun store={ExerciseStore} />
+        <FileRun store={ExerciseStore} exercise={exercise} />
       </Shared>,
       element
     );
   });
 
-  this.get('#/Test', (context) => {
+  this.get('#/Test', (context) => {          
     ReactDOM.render(
       <Shared context={context}>
         <Test store={ExerciseStore} />
