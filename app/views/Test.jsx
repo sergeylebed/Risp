@@ -1,7 +1,6 @@
 import React from 'react';
 import TimeBox from '../components/TimeBox.jsx';
 import CountBox from '../components/CountBox.jsx';
-import { Exercise } from '../stores/ExerciseStore.js';
 
 export default class Test extends React.Component {
   render() {

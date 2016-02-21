@@ -178,7 +178,7 @@ const mapDispatchToProps = (dispatch) => {
     onCountChange: (value) => { dispatch(ExerciseActions.setCount(value)); },
     onPhasesChange: (value) => { dispatch(ExerciseActions.setPhases(value)); },
     onPhaseChange: (id, value) => { dispatch(ExerciseActions.setPhase(id, value)); },
-    onStart: () => { console.log('start!'); }
+    onStart: () => { window.location = '#/Runner'; }    
   }
 }
 
