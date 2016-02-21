@@ -1,4 +1,5 @@
 import FileModel from './FileModel.js'
+import Exercise from './Exercise.js';
 
 export default class StoreModel {
   constructor(files, file) {
