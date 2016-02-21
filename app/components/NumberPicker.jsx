@@ -10,7 +10,6 @@ const NumberPicker = ({
   dialogOptions,
 
   columns,
-
   vertical,
 
   onSelect
@@ -57,19 +56,19 @@ const NumberPicker = ({
               </button>
             ))
           }
+        </div>
+        <div className="modal fade" id={id} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <NumberPickerDialog
+            title={title}
+
+            columns={columns}
+            options={dialogOptions}
+
+            value={value}
+
+            onSelect={onSelect}/>
+        </div>
       </div>
-      <div className="modal fade" id={id} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <NumberPickerDialog
-          title={title}
-
-          columns={columns}
-          options={dialogOptions}
-
-          value={value}
-
-          onSelect={onSelect}/>
-      </div>
-    </div>
-  );
+    );
 };
 export default NumberPicker;
