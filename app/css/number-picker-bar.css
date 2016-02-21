@@ -1,12 +1,8 @@
-.number-picker-bar > li {
-  margin: 0 5px 0 0;
-}
-
-.number-picker-bar > li:last-child {
+.number-picker-bar > div:last-child {
   margin: 0;
 }
 
-.number-picker-bar.vertical > li > button {
+.number-picker-bar.vertical > div > button {
   width: 100%;
 }
 
@@ -14,10 +10,10 @@
   width: 100%;
 }
 
-.number-picker-bar.vertical > li {
+.number-picker-bar.vertical > div {
   margin: 0 0 10px 0;
 }
 
-.number-picker-bar.vertical > li:last-child {
+.number-picker-bar.vertical > div:last-child {
   margin: 0;
 }
