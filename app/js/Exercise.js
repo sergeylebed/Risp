@@ -50,34 +50,71 @@ export class PhaseView extends Phase {
         if (this.hasFinished) return;
         this.countDown -= 1;
     }
+    
+    repeat()
+    {
+        this.countDown = this.durationSec;
+    }
 }
 
 export class ExerciseView {
 
     constructor(exercise) {
         this.name = exercise.name;
-        this.count = exercise.count;
-        this.current = new PhaseView(-1, exercise.delaySec);
+        this.count = 0;
+        this.countDown = exercise.count;        
         this.phaseViews = [];
         exercise.phases.forEach(function (phase) {            
             this.phaseViews[phase.id] = new PhaseView(phase.id, phase.durationSec);
         }, this);
+        
+        if (exercise.delaySec>0)
+        {
+            this.current = new PhaseView(-1, exercise.delaySec);
+        } else {
+            this.current = this.phaseViews[0];    
+        }
     }
 
     nextTick() {
         if (this.hasFinished) return;
-        if (!this.current.hasFinished) {
+        
+       if (!this.current.hasFinished) {
             this.current.nextTick();
-            return;
         }
-        if (this.current.id == (this.phaseViews.length - 1)) {
-            this.current = null;
-            return;
-        }
+        
+        if (!this.current.hasFinished) return;
+                
+        if (this.current.hasFinished) {            
+            if (this.current.id == (this.phaseViews.length - 1)) {
+                this.repeat();            
+                return;
+            }            
+        }            
+        
         this.current = this.phaseViews[this.current.id + 1];
     }
 
+    // get repeatFinished() {
+    //     return this.current 
+    //             && (this.current.id == (this.phaseViews.length - 1))
+    //             && (this.current.hasFinished());
+    // }
+
     get hasFinished() {
-        return (!this.current);
+        return !this.current  || (this.countDown == 0);
+    }
+
+    repeat() {
+        this.count++;
+        this.countDown--;
+        if (this.countDown > 0) {
+            this.phaseViews.forEach(function (phase) {
+                phase.repeat();
+            }, this);
+            this.current = this.phaseViews[0];
+            return;
+        }        
+        this.current = null;
     }
 }

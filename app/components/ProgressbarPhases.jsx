@@ -8,7 +8,7 @@ export default class ProgressbarPhases extends React.Component {
     
     for(var i = 0; i < this.props.count; i++) {
       btns.push(
-        <div className='btn-group' style={{width: width + '%'}}>
+        <div className='btn-group' style={{width: width + '%'}} key={'phase'+i}>
           <button     
           key = {i}      
           type="button" className={'btn ' + (this.props.position > i ? 'btn-info' : 'btn-default')}>{ i + 1 }</button>
