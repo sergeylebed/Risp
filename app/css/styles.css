@@ -27,3 +27,25 @@
 	text-align: center;
 	font-size: larger;
 }
+.countbox, .timebox {
+	text-align: center;
+}
+.countbox div, .timebox div {
+	font-size: 3em !important;
+	font-weight: bold;
+	color: #000000;
+	background-color: #ffffff;
+	padding: 20px;
+	outline: #ccc 3px solid;
+	display: inline-block;
+    min-width: 130px;
+}
+.timebox .timebox-default {}
+.timebox .timebox-pause {
+	background-color: #dfd;
+	outline-color: #0a0;
+}
+.timebox .timebox-delay {
+	background-color: #ffd;
+	outline-color: #f00;
+}

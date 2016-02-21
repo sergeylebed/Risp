@@ -6,7 +6,11 @@ export default function Welcome({ context }) {
       <div className="container">
         <button className="btn btn-success btn-lg btn-block" onClick={() => { context.redirect('#/View'); }}>Start exercises now</button>
         <h1 className="text-center">Introduction:</h1>
-        <p className="lead">RISP helps you doing your exercises...</p>
+        <p className="lead" style={{fontSize: '2em', textAlign: 'center'}}>
+          RISP helps you doing your exercises.<br />
+          It optimizes your time, forming your plan.<br />
+          You aren’t digressing with your exercises.<br />
+          You can absolutely immerse yourself in sport.</p>
         <ul className="media-list">
           <li className="media">
             <div className="media-left"><h2 className="media-heading"><span className="label label-default">1</span></h2></div>
