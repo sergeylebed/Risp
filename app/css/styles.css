@@ -1,3 +1,32 @@
+.slide {
+	margin-top: 50px;
+}
+
+.slide:first {
+	margin-top: 0;
+}
+
+.slide-container {
+	padding: 0 60px;
+}
+
+.super-number {
+	margin: 10px 20px 0 0;
+	font-size: 60px;
+	width: 90px;
+	height: 90px;
+	line-height: 90px;
+	text-align: center;
+	border-radius: 50%;
+	border: 2px solid black;
+
+	float: left;
+}
+
+.slide-body {
+	float: left;
+}
+
 .navbottom { margin-top: 20px }
 .progressbar {margin: 10px 0; }
 .progressbar .btn-group { padding: 0 5px; }
@@ -6,7 +35,7 @@
 .phase-run .phase-number {padding-left: 10px; padding-right: 0}
 .phase-run .progressbar {padding-left: 0; padding-right: 0}
 .phase-run .phase-counter {padding-left: 0; padding-right: 10px}
-.pbar-number { 
+.pbar-number {
 	height: 36px;
 	padding: 6px;
 	margin: 9px 0;
