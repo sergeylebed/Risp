@@ -22,7 +22,7 @@ export default function Welcome({ context }) {
             <div className='super-number'>1</div>
             <div className='slide-body'>
               <h2>Adjust <b>count</b></h2>
-              <p className='lead'>which shows how many times your exercise will be repeated</p>
+              <p className='lead'>It shows how many times your exercise will be repeated</p>
             </div>
         </div>
 
@@ -30,7 +30,7 @@ export default function Welcome({ context }) {
           <div className='super-number'>2</div>
           <div className='slide-body'>
             <h2>Adjust <b>number of phases</b></h2>
-            <p className='lead'>which shows number of movement your exercise includes</p>
+            <p className='lead'>It shows number of movement your exercise includes</p>
           </div>
         </div>
 
@@ -38,7 +38,7 @@ export default function Welcome({ context }) {
           <div className='super-number'>3</div>
           <div className='slide-body'>
             <h2>Adjust <b>duration of every phase</b></h2>
-            <p className='lead'>which shows approximate duration of every movement</p>
+            <p className='lead'>It shows approximate duration of every movement</p>
           </div>
         </div>
 
@@ -46,7 +46,7 @@ export default function Welcome({ context }) {
           <div className='super-number'>4</div>
           <div className='slide-body'>
             <h2>Adjust <b>delay</b></h2>
-            <p className='lead'>which shows duration of time period given to you to prepear before the beginning of exercise</p>
+            <p className='lead'>It shows time given to you before the exercise</p>
           </div>
         </div>
       </div>
