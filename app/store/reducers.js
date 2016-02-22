@@ -1,5 +1,5 @@
 import * as Actions from './actions';
-import { Risp } from './model';
+import { Risp, Settings } from './model';
 import _ from 'underscore';
 import { Exercise, Phase} from '../js/Exercise'; 
 
@@ -18,6 +18,11 @@ var copyExercise = function(state)
     );
 }
 
+var copySettings = function(state)
+{
+    return new Settings(state.settings.soundOn);
+}
+
 var copyRisp = function(state)
 {
     let ex = copyExercise(state);
@@ -27,6 +32,13 @@ var copyRisp = function(state)
 export function rispReducer(state = initialState, action) {
 
   switch (action.type) {
+    
+    case Actions.ActionType.Settings.setSound:
+    {
+        let st = copySettings(state);
+        st.soundOn = action.soundOn;
+        return new Risp(state.currentExercise, st);
+    }
     
     case Actions.ActionType.Exercise.setCount:        
       {

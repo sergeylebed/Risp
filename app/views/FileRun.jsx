@@ -4,7 +4,9 @@ import ProgressBar from '../components/ProgressBar.jsx';
 import { ExerciseView } from '../js/Exercise';
 import TimeBox from '../components/TimeBox.jsx';
 import CountBox from '../components/CountBox.jsx';
+import Sounds from '../js/SoundPlayer.js';
 import { connect } from 'react-redux'
+import { SettingsActions } from '../store/actions';
 
 class FileRun extends React.Component {
     
@@ -13,6 +15,9 @@ class FileRun extends React.Component {
     this.animator = new ExerciseRunner(props.exercise || {})
     this.animator.tick = 
         ()=> { 
+                if (this.state.isSoundOn) {
+                    Sounds.tick();
+                }   
                 this.state.exercise.nextTick();
                 this.setState(
                     {
@@ -28,8 +33,8 @@ class FileRun extends React.Component {
             };
     this.state = {
         secondsElapsed: 0,
-        exercise: new ExerciseView(props.exercise),
-        isSoundOn: true
+        exercise: new ExerciseView(props.exercise, props.soundOn),
+        isSoundOn: props.soundOn
         };   
     this.animator.play();
   }
@@ -38,23 +43,29 @@ class FileRun extends React.Component {
     this.animator.stop();    
   }
   
-  refreshState(){
+  refreshState(){      
       this.setState({
                         secondsElapsed: this.state.secondsElapsed,
-                        exercise: this.state.exercise
-                        
+                        exercise: this.state.exercise,
+                        isSoundOn: this.state.isSoundOn       
                     });
   }
   
   soundOn(){
+      this.state.exercise.soundOn = true;
+      this.props.onSoundChange(this.state.exercise.soundOn);
       this.setState({
+                        exercise: this.state.exercise,
                         isSoundOn:true
                         
                     });
   }
   
-  soundOff(){
+  soundOff(){            
+      this.state.exercise.soundOn = false;
+      this.props.onSoundChange(this.state.exercise.soundOn);
       this.setState({
+                        exercise: this.state.exercise,
                         isSoundOn: false
                         
                     });
@@ -63,7 +74,8 @@ class FileRun extends React.Component {
   setInitialState(){
       this.setState( {
         secondsElapsed: 0,
-        exercise: new ExerciseView(this.props.exercise)
+        isSoundOn: this.props.soundOn,
+        exercise: new ExerciseView(this.props.exercise, this.props.soundOn)
         });
   }
         
@@ -164,6 +176,7 @@ class FileRun extends React.Component {
                 e.preventDefault(); 
                 this.animator.stop();
                 this.setInitialState();
+                window.location = '#/Editor'; 
               }}
               disabled={false}><span className="glyphicon glyphicon-pencil" aria-hidden="true"></span> Change</button>
           </div>                   
@@ -175,12 +188,15 @@ class FileRun extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    exercise: state.currentExercise
+    exercise: state.currentExercise,
+    soundOn: state.settings.soundOn
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}  
+  return {
+      onSoundChange: (soundOn) => { dispatch(SettingsActions.setSound(soundOn));},
+  }  
 }
 
 const Runner = connect(

@@ -10,7 +10,22 @@ export const ActionType = {
         setDelaySound : 'Exercise.setDelaySound',
         setCountSound : 'Exercise.setCountSound',
         setPhaseSound : 'Exercise.setPhaseSound'
+    },
+    
+    Settings: {
+        setSound: 'Settings.setSound'
     }
+}
+
+export class SettingsActions
+{
+    static setSound(soundOn) {
+        return {
+            type: ActionType.Settings.setSound,
+            soundOn: soundOn
+        }
+    }
+
 }
 
 export class ExerciseActions

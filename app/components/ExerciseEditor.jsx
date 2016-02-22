@@ -175,6 +175,10 @@ const mapDispatchToProps = (dispatch) => {
     onCountChange: (value) => { dispatch(ExerciseActions.setCount(value)); },
     onPhasesChange: (value) => { dispatch(ExerciseActions.setPhases(value)); },
     onPhaseChange: (id, value) => { dispatch(ExerciseActions.setPhase(id, value)); },
+    onDelaySoundChange : (soundOn) => { dispatch(ExerciseActions.setDelaySound(soundOn));},
+    onCountSoundChange  : (soundOn) => { dispatch(ExerciseActions.setCountSound(soundOn));},
+    onPhaseSoundChange: (id, soundOn) => { dispatch(ExerciseActions.setPhaseSound(id, soundOn)); },
+    
     onStart: () => { window.location = '#/Runner'; }    
   }
 }

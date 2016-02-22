@@ -18,17 +18,17 @@ const sounds = {
   }),
   "tick": new Wad({
     source: 'sawtooth',
-    volume: 1,
+    volume: 0.2,
     env: {
       attack  : 0.0,
       decay   : 0.0,
-      sustain : 0.5,
-      hold    : 0.1,
+      sustain : 0.2,
+      hold    : 0.05,
       release : 0
     },
     filter  : {
         type      : 'highpass',
-        frequency : 700,
+        frequency : 10000,
         q         : 1
     },
     duration: 100
@@ -38,9 +38,9 @@ const sounds = {
     volume: 1,
     env: {
       attack  : 0.0,
-      decay   : 0.5,
-      sustain : 0.5,
-      hold    : 0.5,
+      decay   : 0.2,
+      sustain : 0.3,
+      hold    : 0.3,
       release : 0
     },
     filter  : {
@@ -101,7 +101,7 @@ class Player extends BasePlayer {
   }
 
   tick() {
-    this._play('tick');
+//    this._play('tick');
   }
 
   beep() {
@@ -113,7 +113,7 @@ class Player extends BasePlayer {
   }
 
   stop() {
-    this._stop('stop');
+    this._play('stop');
   }
 }
 
