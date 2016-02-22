@@ -27,6 +27,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "babel-polyfill": "^6.5.0",
     "bootstrap": "^3.3.6",
     "fs": "0.0.2",
     "jquery": "^2.2.0",
