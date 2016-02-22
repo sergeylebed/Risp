@@ -31,7 +31,10 @@
 .progressbar {margin: 10px 0; }
 .progressbar .btn-group { padding: 0 5px; }
 .progressbar button { width: 100%; color: transparent; }
-.phase-active { outline: #f00 solid 2px; }
+.phase-active {
+	border: 2px solid #5bc0de;
+	border-radius: 6px;
+}
 .phase-run .phase-number {padding-left: 10px; padding-right: 0}
 .phase-run .progressbar {padding-left: 0; padding-right: 0}
 .phase-run .phase-counter {padding-left: 0; padding-right: 10px}
@@ -59,11 +62,18 @@
 	text-align: center;
 	font-size: larger;
 }
+
+
 .countbox, .timebox {
 	text-align: center;
 	margin-bottom: 10px;
 	position: relative;
 }
+
+.countbox > div, .timebox > div {
+	border-radius: 6px;
+}
+
 .countbox label, .timebox label {
 	position: absolute;
     bottom: 0;

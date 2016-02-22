@@ -1,4 +1,4 @@
-const sounds = {
+const sounds = global.Wad !== undefined ? {
   "beep": new Wad({
     source: 'triangle',
     volume: 1,
@@ -67,7 +67,9 @@ const sounds = {
     },
     duration: 100
   })
-};
+}
+:
+{};
 
 class BasePlayer {
   constructor(sounds) {
